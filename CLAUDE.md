@@ -1,4 +1,4 @@
-# CLAUDE.md — Cedar Lawn Company / Instant Lawn Quote
+# CLAUDE.md — Cedar Lake Lawn Co. / Instant Lawn Quote
 
 Project context for Claude Code. Read this before making changes.
 

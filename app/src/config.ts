@@ -13,7 +13,7 @@ export interface Tier {
 }
 
 export const CONFIG = {
-  BUSINESS_NAME: 'Cedar Lawn Company', // working name — cedarlawncompany.com is open
+  BUSINESS_NAME: 'Cedar Lake Lawn Co.', // matches the domain cedarlakelawn.com
   PHONE: '2623431594', // (262) 343-1594
   OWNER_EMAIL: '', // where new leads are sent (set before deploy)
   SERVICE_AREA: 'Washington · Waukesha · Ozaukee County, WI',

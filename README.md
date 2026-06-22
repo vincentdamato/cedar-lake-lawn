@@ -1,4 +1,4 @@
-# Cedar Lawn Company — Instant Lawn Quote
+# Cedar Lake Lawn Co. — Instant Lawn Quote
 
 A web app for a local SE-Wisconsin lawn-care service. A homeowner types their address,
 the app pulls their **actual lot from county parcel maps**, estimates the mowable lawn,
@@ -45,7 +45,7 @@ and publishes it on every push to `main`.
 2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
 3. Push to `main` (or Actions → "Deploy to GitHub Pages" → Run workflow).
 4. Live at `https://<user>.github.io/<repo>/`. The build uses a relative base, so it
-   works on that subpath today and on a custom domain (cedarlawncompany.com) later with
+   works on that subpath today and on a custom domain (cedarlakelawn.com) later with
    no change — just add the domain under Settings → Pages and a `CNAME`.
 
 That URL is what goes on the door hangers, yard signs, and Nextdoor posts.
