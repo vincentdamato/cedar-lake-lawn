@@ -1,0 +1,24 @@
+{
+  "name": "app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.9"
+  },
+  "dependencies": {
+    "@turf/area": "^7.3.5",
+    "@turf/helpers": "^7.3.5",
+    "maplibre-gl": "^5.24.0",
+    "terra-draw": "^1.31.2",
+    "terra-draw-maplibre-gl-adapter": "^1.4.1"
+  }
+}

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cedar Lawn Company — Instant Lawn Quote · SE Wisconsin</title>
+<meta name="description" content="Type your address and get a real lawn-care price, measured from your actual lot — minus the house. No contract. Serving Washington, Waukesha & Ozaukee County, WI." />
+<link rel="icon" type="image/svg+xml" href="/leaf.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&display=swap" />
+<meta name="theme-color" content="#1f4031" />
+<meta name="robots" content="index,follow" />
+<!-- social share preview (Nextdoor / Facebook / iMessage) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Cedar Lawn Company" />
+<meta property="og:title" content="Instant Lawn Quote — Cedar Lawn Company" />
+<meta property="og:description" content="Type your address, get a real price measured from your actual lawn. No contract. Washington, Waukesha & Ozaukee County, WI." />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Instant Lawn Quote — Cedar Lawn Company" />
+<meta name="twitter:description" content="Type your address, get a real price measured from your actual lawn. No contract. SE Wisconsin." />
+</head>
+<body>
+<div id="sr" class="sronly" role="status" aria-live="polite"></div>
+
+<header class="site">
+  <div class="wrap bar">
+    <div class="mark"><span class="leaf"></span><span id="brand">Cedar Lawn Company</span></div>
+    <div class="navcall">
+      <a class="navnum" id="navnum" href="#">(262) 343-1594</a>
+      <a class="pill" href="#quote">Get my price</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow" id="eyebrow">Washington · Waukesha · Ozaukee County, WI</div>
+    <h1>Lawn care you can count on.</h1>
+    <p class="lede">We're your neighbors — a small, local crew that shows up on schedule, does careful work, and charges a fair, competitive price. Get a real quote in seconds, book by text, and skip the contract. We'd love the chance to earn your business.</p>
+    <div class="heroctas">
+      <a class="btn btn-primary" href="#quote">Get my price</a>
+      <a class="btn btn-ghost" id="heroText" href="#">Text us a question</a>
+    </div>
+    <div class="trustline" id="trustline">
+      <span><span class="dot"></span>Locally owned</span>
+      <span><span class="dot"></span>No contracts</span>
+      <span><span class="dot"></span>Same crew every time</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE TOOL -->
+<section id="quote" class="band">
+  <div class="wrap">
+    <div class="eyebrow">Instant quote</div>
+    <h2>See your price in about ten seconds.</h2>
+    <p class="seclede">Type your address — we size your lawn from your lot on county maps and price it on the spot. No phone tag, no guessing. We confirm in person, and it's usually right on the money.</p>
+
+    <div class="tool" aria-label="Instant lawn quote">
+      <div class="searchrow">
+        <div class="acwrap">
+          <input id="addr" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Start typing your address…" aria-label="Your address" aria-autocomplete="list" aria-expanded="false" aria-controls="acList" role="combobox" />
+          <div class="aclist hidden" id="acList" role="listbox"></div>
+        </div>
+        <button class="find" id="findBtn">Find my lawn</button>
+      </div>
+      <div class="grid">
+        <div class="mapcol">
+          <div id="map"></div>
+          <div class="chip" id="chip">Type your address to start</div>
+        </div>
+        <div class="panel">
+          <div class="empty" id="empty">Type your address above. We'll pull your <b>actual lot</b>, size up the lawn, and your <b>price per cut</b> shows up right here.</div>
+
+          <div class="loading hidden" id="loading" role="status"><span class="spin" aria-hidden="true"></span>Measuring your lawn…</div>
+
+          <div class="errstate hidden" id="errstate">
+            <p>We couldn't reach the county maps just now — could be a hiccup on their end.</p>
+            <button class="cta" id="retryBtn" type="button">Try again</button>
+          </div>
+
+          <div class="result hidden" id="result">
+            <div class="area" id="areaLine"></div>
+            <div class="pricewrap"><span class="price" id="price">$0</span><span class="per" id="perLabel">per cut</span></div>
+            <div class="taxnote" id="taxnote"></div>
+            <div class="srcnote" id="srcnote"></div>
+            <button class="adjust" id="adjustBtn" type="button">Not quite right? Adjust the lawn →</button>
+            <div class="menulabel">Choose your service</div>
+            <div class="tiers" id="tiers"></div>
+            <div class="cadlabel">How often?</div>
+            <div class="cadrow" id="cadrow"></div>
+            <a class="cta" id="ctaText" href="#">Text to book</a>
+            <div class="agreenote" id="agreenote"></div>
+            <a class="cta2" id="ctaCall" href="#">or call (262) 343-1594</a>
+            <div class="smsfallback hidden" id="smsFallback">
+              <p>On a computer? Text this to <b id="sfNum"></b>:</p>
+              <div class="sfMsg" id="sfMsg"></div>
+              <button class="cta2" id="sfCopy" type="button">Copy message</button>
+            </div>
+          </div>
+
+          <div class="oa hidden" id="outArea">
+            <h3 id="oaHead">We're not in that area yet.</h3>
+            <p id="oaBody">We're serving Washington, Waukesha &amp; Ozaukee County right now. Leave your address and we'll reach out the moment we reach you.</p>
+            <form id="oaForm">
+              <input id="oaContact" type="text" placeholder="Phone or email" aria-label="Phone or email" required />
+              <button class="cta" type="submit">Notify me when you're here</button>
+            </form>
+            <div class="done hidden" id="oaDone">Thanks — we'll be in touch. You can also text us anytime at (262) 343-1594.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="undertool">No account, no spam. Your address is only used to measure the lawn and prep your quote.</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow">The menu</div>
+    <h2>Simple. Pick what your yard needs.</h2>
+    <p class="seclede">Three simple levels — start with a clean cut and add finish work whenever you like. Friendly help, never any pressure.</p>
+    <div class="cards3" id="serviceCards"></div>
+    <div class="undertool">Your exact price shows up live in the quote tool above — priced off your actual lawn, not a guess over the phone.</div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Why neighbors choose us</div>
+    <h2>Friendly, reliable, and fair.</h2>
+    <p class="seclede">We keep it simple: careful work, honest pricing, and a crew that treats your yard like its own. Here's what every customer can count on.</p>
+    <div class="promise">
+      <div class="pcard"><h3>Fair, competitive prices</h3><p>Affordable cuts priced off your actual lawn — clear quotes and no surprises on the bill. Paying more somewhere else? We'd love the chance to beat it.</p></div>
+      <div class="pcard"><h3>No contracts, ever</h3><p>Skip a week, pause for vacation, or stop anytime — nothing to sign and nothing to cancel. We earn your business every single visit.</p></div>
+      <div class="pcard"><h3>The same friendly crew</h3><p>One reliable crew that learns your yard and how you like it — on schedule, easy to reach, and glad to be there.</p></div>
+      <div class="pcard"><h3>Priced off your real lot</h3><p>Your quote starts from your actual lot on county maps — transparent, fair, and confirmed in person before we ever start.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>Three taps to a booked cut.</h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Type your address</h3><p>We pull your actual lot from county maps and estimate the lawn from it. No tracing, no phone tag — we confirm the exact price on-site.</p></div>
+      <div class="step"><div class="num">2</div><h3>Pick your service</h3><p>Choose The Cut, Fresh Edge, or Premier Trim, and how often you want us out.</p></div>
+      <div class="step"><div class="num">3</div><h3>Book by text</h3><p>One tap sends us your address and your quote. We reply with a start date. That's it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="band vision">
+  <div class="wrap narrow">
+    <div class="eyebrow">Where we're headed</div>
+    <h2>Lawn care now. Your whole property, soon.</h2>
+    <p class="lede">Wisconsin seasons are short, so we're building toward year-round care — beds and edging, softscapes and hardscapes, the full property — all at the same honest pricing. Mowing is where we start. The fair-price promise covers everything we'll ever touch.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap narrow">
+    <div class="eyebrow">Good to know</div>
+    <h2>Questions, answered.</h2>
+    <div class="faq">
+      <details>
+        <summary>What's included in a cut?</summary>
+        <p>Every visit is a mow, a trim along the edges, and a full blow-off of your walks and drive. Fresh Edge adds a crisp mechanical edge; Premier adds tidy bed lines and detail work. Pick your level right in the quote tool.</p>
+      </details>
+      <details>
+        <summary>Is there a contract?</summary>
+        <p>No. We earn next week's cut by showing up for this one. Skip a week, pause for vacation, or stop anytime — nothing to sign and nothing to cancel.</p>
+      </details>
+      <details>
+        <summary>How does billing work?</summary>
+        <p>Per cut, after the work — no packages, no prepay. You get a simple total plus Wisconsin's service tax, and you pay by whatever's easiest for you.</p>
+      </details>
+      <details>
+        <summary>Is the quoted price exact?</summary>
+        <p>It's a real estimate, measured from your lot on county maps, and it's usually right on the money. We confirm it in person before the first cut — especially on larger properties, where we check the actual mowable area with you.</p>
+      </details>
+      <details>
+        <summary>What if it rains?</summary>
+        <p>We watch the forecast and shift your cut a day or two when we have to. You'll hear from us before we come — never a surprise.</p>
+      </details>
+      <details>
+        <summary>Do you do more than mowing?</summary>
+        <p>Mowing is where we start. Edging, beds, and seasonal cleanups are rolling out at the same honest pricing. Tell us what your property needs.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- SWITCH OFFER -->
+<section class="band finalcta">
+  <div class="wrap narrow">
+    <div class="eyebrow">New customers</div>
+    <h2>Already have a lawn service? Give us a shot.</h2>
+    <p class="seclede" style="margin-left:auto;margin-right:auto">We'd love the chance to earn your business, so we make switching easy: text us what you're paying now and we'll <b>match it, then take another <span id="offerPct">10</span>% off</b> — so you save from the very first cut. No contract, no pressure. If we're not a better cut at a better price, you've lost nothing.</p>
+    <div class="heroctas">
+      <a class="btn btn-primary" id="switchText" href="#">Text us your current price</a>
+      <a class="btn btn-ghost" href="#quote">See my instant price</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="finalcta">
+  <div class="wrap">
+    <h2>Ready when you are.</h2>
+    <p class="seclede" style="margin-left:auto;margin-right:auto">A real quote in seconds — no phone tag, no contract. We'd love to be your crew.</p>
+    <div class="heroctas">
+      <a class="btn btn-primary" href="#quote">Get my price</a>
+      <a class="btn btn-ghost" id="finalCall" href="#">Call us</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap frow">
+    <div class="disclaimer">Quotes are an instant estimate measured from your lot on county maps. We confirm the final price in person — it's usually right on the money. <span id="footArea">Serving Washington, Waukesha &amp; Ozaukee County, WI.</span></div>
+    <div><a id="footNum" href="#" style="text-decoration:none;font-weight:600;color:var(--pine)">(262) 343-1594</a></div>
+  </div>
+</footer>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

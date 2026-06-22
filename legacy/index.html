@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Honest Lawn Care · Instant Quote</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&display=swap');
+
+  :root{
+    --paper:#f5f4ed; --band:#eeede4; --ink:#16201a; --pine:#1f4031; --moss:#4a6b55;
+    --spring:#5fb83f; --spring-deep:#3f8f29; --line-solid:#d8d6c9;
+    --card:#ffffff; --tint:#f1f8ec;
+    --shadow:0 1px 2px rgba(22,32,26,.05), 0 18px 40px -24px rgba(22,32,26,.35);
+    --shadow-sm:0 1px 2px rgba(22,32,26,.04), 0 10px 24px -18px rgba(22,32,26,.3);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:2.5px solid var(--spring-deep);outline-offset:2px;border-radius:4px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  .narrow{max-width:760px}
+
+  /* header */
+  header.site{border-bottom:1px solid var(--line-solid);background:rgba(245,244,237,.9);backdrop-filter:saturate(1.1) blur(6px);position:sticky;top:0;z-index:500}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .mark{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+  .leaf{width:13px;height:13px;border-radius:0 60% 60% 60%;background:var(--spring);transform:rotate(45deg);display:inline-block}
+  .navcall{display:flex;align-items:center;gap:14px}
+  .navnum{font-weight:600;font-size:15px;color:var(--moss);text-decoration:none}
+  .pill{background:var(--pine);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:9px 16px;border-radius:999px;white-space:nowrap}
+  .pill:hover{background:var(--ink)}
+
+  /* sections */
+  section{padding:64px 0}
+  .band{background:var(--band)}
+  .eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--moss)}
+  h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-.03em;font-size:clamp(38px,6.4vw,64px);line-height:1.0;margin:.3em 0 .3em;max-width:15ch}
+  h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-.025em;font-size:clamp(28px,4.4vw,40px);line-height:1.06;margin:.25em 0 .35em;max-width:20ch}
+  .lede{font-size:clamp(16px,2.1vw,19px);color:#33473b;max-width:52ch;margin:0}
+  .seclede{font-size:17px;color:#3c4f44;max-width:56ch;margin:0 0 30px}
+
+  /* hero */
+  .hero{padding-top:54px;padding-bottom:18px}
+  .heroctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:16px;padding:14px 24px;border-radius:12px;border:0;cursor:pointer;font-family:inherit}
+  .btn-primary{background:var(--spring);color:#0d2410}
+  .btn-primary:hover{background:var(--spring-deep);color:#fff}
+  .btn-ghost{background:transparent;color:var(--pine);border:1.5px solid var(--line-solid)}
+  .btn-ghost:hover{border-color:var(--moss)}
+  .trustline{display:flex;gap:9px 20px;flex-wrap:wrap;margin-top:28px;color:var(--moss);font-weight:600;font-size:14.5px}
+  .trustline span{display:inline-flex;align-items:center;gap:8px}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--spring);display:inline-block}
+
+  /* tool */
+  .tool{background:var(--card);border:1px solid var(--line-solid);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;margin-top:8px}
+  .searchrow{display:flex;gap:10px;padding:18px;border-bottom:1px solid var(--line-solid);flex-wrap:wrap}
+  .acwrap{position:relative;flex:1 1 240px;min-width:0}
+  .searchrow input{width:100%;border:1px solid var(--line-solid);border-radius:12px;padding:13px 15px;font:inherit;font-size:16px;background:#fbfbf7;color:var(--ink)}
+  .searchrow input::placeholder{color:#9aa69d}
+  .find{border:0;border-radius:12px;background:var(--spring);color:#0d2410;font-weight:700;font-size:15px;padding:0 22px;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .find:hover{background:var(--spring-deep);color:#fff}
+  .find:disabled{opacity:.55;cursor:default}
+  /* address autocomplete */
+  .aclist{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:600;background:#fff;border:1px solid var(--line-solid);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;max-height:264px;overflow-y:auto}
+  .acitem{display:block;width:100%;text-align:left;border:0;background:#fff;border-bottom:1px solid var(--band);padding:10px 14px;cursor:pointer;font:inherit;font-size:14.5px;color:var(--ink);line-height:1.3}
+  .acitem:last-child{border-bottom:0}
+  .acitem:hover,.acitem.act{background:var(--tint)}
+  .acitem b{font-weight:600}
+  .acitem span{display:block;font-size:12.5px;color:#6c7a70;margin-top:1px}
+  .grid{display:grid;grid-template-columns:1.5fr 1fr;align-items:stretch}
+  .mapcol{position:relative;border-right:1px solid var(--line-solid);min-height:460px}
+  #map{position:absolute;inset:0;background:#e7e6dd}
+  .chip{position:absolute;left:14px;top:14px;z-index:450;background:rgba(22,32,26,.86);color:#fff;font-size:13.5px;font-weight:500;padding:8px 13px;border-radius:999px;pointer-events:none;max-width:calc(100% - 28px);box-shadow:0 6px 18px -8px rgba(0,0,0,.5)}
+  .mapctl{position:absolute;left:14px;bottom:14px;right:14px;z-index:450;display:flex;gap:8px;flex-wrap:wrap}
+  .mapctl button{border:0;background:#fff;color:var(--ink);font:inherit;font-weight:600;font-size:13px;padding:8px 13px;border-radius:9px;cursor:pointer;box-shadow:0 4px 12px -4px rgba(0,0,0,.35)}
+  .mapctl button:hover{background:var(--paper)}
+  .mapctl button[disabled]{opacity:.45;cursor:default}
+  .mapctl button.box{background:var(--spring);color:#0d2410;margin-right:auto}
+  .mapctl button.box:hover{background:var(--spring-deep);color:#fff}
+  /* draggable corner handle */
+  .vtx{width:16px;height:16px;border-radius:50%;background:var(--spring);border:2.5px solid #0d2410;box-shadow:0 1px 5px rgba(0,0,0,.45);cursor:grab}
+  .vtx:active{cursor:grabbing}
+  .panel{padding:24px;display:flex;flex-direction:column;gap:2px;justify-content:center}
+  .panel .empty{color:#6c7a70;font-size:15.5px;line-height:1.45}
+  .panel .empty b{color:var(--ink);font-weight:600}
+  .area{font-size:14px;font-weight:600;color:var(--moss)}
+  .pricewrap{display:flex;align-items:baseline;gap:8px;margin:3px 0 4px}
+  .price{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:50px;letter-spacing:-.03em;line-height:1;color:var(--pine)}
+  .per{font-size:14px;font-weight:600;color:var(--moss)}
+  .menulabel,.cadlabel{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--moss);margin:16px 0 8px}
+  .tiers{display:flex;flex-direction:column;gap:8px}
+  .tier{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1.5px solid var(--line-solid);border-radius:12px;padding:11px 13px;cursor:pointer;background:#fbfbf7;transition:border-color .12s,background .12s}
+  .tier:hover{border-color:var(--moss)}
+  .tier.sel{border-color:var(--spring-deep);background:var(--tint)}
+  .tier .tname{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px}
+  .tier .tinc{font-size:12.5px;color:#5d6c63;margin-top:1px}
+  .tier .tprice{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;color:var(--pine);white-space:nowrap}
+  .cadrow{display:flex;gap:7px;flex-wrap:wrap}
+  .cad{border:1.5px solid var(--line-solid);background:#fbfbf7;border-radius:999px;padding:7px 13px;font:inherit;font-size:13px;font-weight:600;color:var(--moss);cursor:pointer}
+  .cad:hover{border-color:var(--moss)}
+  .cad.sel{border-color:var(--spring-deep);background:var(--tint);color:var(--pine)}
+  .cta{display:block;text-align:center;text-decoration:none;background:var(--spring);color:#0d2410;font-weight:700;font-size:16px;padding:14px;border-radius:12px;margin-top:14px}
+  .cta:hover{background:var(--spring-deep);color:#fff}
+  .agreenote{font-size:12px;color:#6c7a70;margin-top:8px;line-height:1.4}
+  .cta2{display:block;text-align:center;text-decoration:none;color:var(--pine);font-weight:600;font-size:14.5px;padding:10px;margin-top:2px}
+  .cta2:hover{text-decoration:underline}
+  .hidden{display:none}
+
+  /* services */
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{background:var(--card);border:1px solid var(--line-solid);border-radius:16px;padding:22px;box-shadow:var(--shadow-sm)}
+  .card .cname{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em}
+  .card .cinc{font-size:13px;font-weight:600;color:var(--spring-deep);margin-top:4px}
+  .card .cblurb{font-size:14.5px;color:#475a4e;margin-top:10px;line-height:1.5}
+  .undertool{font-size:14px;color:var(--moss);margin-top:16px}
+
+  /* promise */
+  .promise{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:6px}
+  .pcard{background:var(--card);border:1px solid var(--line-solid);border-radius:16px;padding:22px;box-shadow:var(--shadow-sm)}
+  .pcard h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;margin:0 0 6px;letter-spacing:-.01em}
+  .pcard p{margin:0;font-size:14.5px;color:#475a4e;line-height:1.5}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:step}
+  .step{position:relative;padding-top:6px}
+  .step .num{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;color:#0d2410;background:var(--spring);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .step h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px;margin:0 0 5px}
+  .step p{margin:0;font-size:14.5px;color:#475a4e}
+
+  /* vision + final */
+  .vision .lede{max-width:60ch}
+  .finalcta{text-align:center}
+  .finalcta h2{margin-left:auto;margin-right:auto;max-width:24ch}
+  .finalcta .heroctas{justify-content:center}
+
+  footer.site{border-top:1px solid var(--line-solid);padding:26px 0 44px;color:#5d6c63;font-size:13.5px;background:var(--paper)}
+  footer .frow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .disclaimer{max-width:54ch;line-height:1.5}
+
+  @media (max-width:760px){
+    section{padding:48px 0}
+    .grid{grid-template-columns:1fr}
+    .mapcol{border-right:0;border-bottom:1px solid var(--line-solid);height:340px;min-height:0}
+    .cards3,.promise,.steps{grid-template-columns:1fr}
+    .navnum{display:none}
+    .hero{padding-top:38px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap bar">
+    <div class="mark"><span class="leaf"></span><span id="brand">Greenline Lawn Care</span></div>
+    <div class="navcall">
+      <a class="navnum" id="navnum" href="#">(262) 555-0100</a>
+      <a class="pill" href="#quote">Get my price</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow" id="eyebrow">West Bend · Lisbon · Sussex &amp; nearby</div>
+    <h1>Lawn care that's actually fair.</h1>
+    <p class="lede">Most companies charge specialist prices for simple work and keep the difference. We price it like what it is — honest labor — and pass the savings to you. Trace your lawn, see a real price, book it by text. No contract, ever.</p>
+    <div class="heroctas">
+      <a class="btn btn-primary" href="#quote">Get my price</a>
+      <a class="btn btn-ghost" id="heroText" href="#">Text us a question</a>
+    </div>
+    <div class="trustline">
+      <span><span class="dot"></span>Fully insured</span>
+      <span><span class="dot"></span>No contracts</span>
+      <span><span class="dot"></span>Same crew every time</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE TOOL -->
+<section id="quote" class="band">
+  <div class="wrap">
+    <div class="eyebrow">Instant quote</div>
+    <h2>See your price in about ten seconds.</h2>
+    <p class="seclede">Find your address, trace your grass, and pick a service. The price is real — we confirm it in person, and it's usually right on the money.</p>
+
+    <div class="tool" aria-label="Instant lawn quote">
+      <div class="searchrow">
+        <div class="acwrap">
+          <input id="addr" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Start typing your address…" aria-label="Your address" aria-autocomplete="list" aria-expanded="false" aria-controls="acList" role="combobox" />
+          <div class="aclist hidden" id="acList" role="listbox"></div>
+        </div>
+        <button class="find" id="findBtn">Find my lawn</button>
+      </div>
+      <div class="grid">
+        <div class="mapcol">
+          <div id="map"></div>
+          <div class="chip" id="chip">Search your address to start</div>
+          <div class="mapctl">
+            <button class="box" id="boxBtn">Box my lawn</button>
+            <button id="undoBtn" disabled>Undo corner</button>
+            <button id="clearBtn" disabled>Clear</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="empty" id="empty">Trace your lawn on the map, then pick a service. Your <b>price per cut</b> shows up here. Drop your address first.</div>
+          <div class="result hidden" id="result">
+            <div class="area" id="areaLine">≈ 0 sq ft of lawn</div>
+            <div class="pricewrap"><span class="price" id="price">$0</span><span class="per" id="perLabel">per cut</span></div>
+            <div class="menulabel">Choose your service</div>
+            <div class="tiers" id="tiers"></div>
+            <div class="cadlabel">How often?</div>
+            <div class="cadrow" id="cadrow">
+              <button class="cad sel" data-cad="Weekly" type="button">Weekly</button>
+              <button class="cad" data-cad="Every other week" type="button">Every other week</button>
+              <button class="cad" data-cad="One-time" type="button">One-time</button>
+            </div>
+            <a class="cta" id="ctaText" href="#">Text to book</a>
+            <div class="agreenote" id="agreenote"></div>
+            <a class="cta2" id="ctaCall" href="#">or call (262) 555-0100</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow">The menu</div>
+    <h2>Simple. Pick what your yard needs.</h2>
+    <p class="seclede">Three levels, no upsell pressure. Start with a clean cut and add finish work when you want it.</p>
+    <div class="cards3" id="serviceCards"></div>
+    <div class="undertool">Your exact price shows up live in the quote tool above — priced off your actual lawn, not a guess over the phone.</div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="band">
+  <div class="wrap">
+    <div class="eyebrow">Our promise</div>
+    <h2>No markup games.</h2>
+    <p class="seclede">The big outfits price simple yard work like it's specialized, wrap it in a "bonded" premium, and pocket the spread. That spread should be yours. Here's what you actually get.</p>
+    <div class="promise">
+      <div class="pcard"><h3>A fair price, not a racket</h3><p>You're paying for the labor and the equipment — not a brand's overhead and margin stacked on top. The savings stay with you.</p></div>
+      <div class="pcard"><h3>No contracts</h3><p>We earn next week's cut by showing up for this one. Skip a week or stop anytime. Nothing to sign, nothing to cancel.</p></div>
+      <div class="pcard"><h3>The same crew</h3><p>The same person who knows your yard and how you like it — not a rotating subcontractor who's never seen the place.</p></div>
+      <div class="pcard"><h3>Fully insured</h3><p>Covered and professional, without the bloated premium some companies bake into your bill just to say the word "bonded."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>Three taps to a booked cut.</h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Trace your lawn</h3><p>Type your address and tap the corners of the grass you want cut. Takes about ten seconds.</p></div>
+      <div class="step"><div class="num">2</div><h3>Pick your service</h3><p>Choose The Cut, Fresh Edge, or Premier Trim, and how often you want us out.</p></div>
+      <div class="step"><div class="num">3</div><h3>Book by text</h3><p>One tap sends us your address and your quote. We reply with a start date. That's it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="band vision">
+  <div class="wrap narrow">
+    <div class="eyebrow">Where we're headed</div>
+    <h2>Lawn care now. Your whole property, soon.</h2>
+    <p class="lede">Wisconsin seasons are short, so we're building toward year-round care — beds and edging, softscapes and hardscapes, the full property — all at the same honest pricing. Mowing is where we start. The fair-price promise covers everything we'll ever touch.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="finalcta">
+  <div class="wrap">
+    <h2>Ready for a fair quote?</h2>
+    <p class="seclede" style="margin-left:auto;margin-right:auto">Ten seconds, no phone tag, no contract. See your price and book it.</p>
+    <div class="heroctas">
+      <a class="btn btn-primary" href="#quote">Get my price</a>
+      <a class="btn btn-ghost" id="finalCall" href="#">Call us</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap frow">
+    <div class="disclaimer">Quotes are an instant estimate from the area you trace. We confirm the final price in person — it's usually right on the money. <span id="footArea">Serving West Bend, Lisbon, Sussex &amp; nearby towns.</span></div>
+    <div><a id="footNum" href="#" style="text-decoration:none;font-weight:600;color:var(--pine)">(262) 555-0100</a></div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* =====================================================================
+   EDIT THESE — Vincent.  All tunable values live here.
+   Base price = max(MIN_PRICE, lawn_sqft * RATE_PER_SQFT).
+   Tier price = round( base + tier.add , ROUND_TO ).
+   Marketing prose (hero, promise, vision) is plain HTML above — edit in place.
+   ===================================================================== */
+const CONFIG = {
+  BUSINESS_NAME : "Greenline Lawn Care",
+  PHONE         : "2625550100",                 // digits only, no +1 (placeholder — swap it)
+  SERVICE_AREA  : "West Bend · Lisbon · Sussex & nearby",
+  FOOTER_AREA   : "Serving West Bend, Lisbon, Sussex & nearby towns.",
+  RATE_PER_SQFT : 0.009,
+  MIN_PRICE     : 40,
+  ROUND_TO      : 5,
+  MAP_CENTER    : [43.4253, -88.1834],          // West Bend, WI
+  START_ZOOM    : 13,
+  HOUSE_ZOOM    : 19,
+  TIERS : [
+    { id:'cut',     name:'The Cut',      inc:'Mow · leaf-blow · general trim',         blurb:'A clean cut — mowed, trimmed along the edges, and everything blown off your walks and drive. The essentials, done right.', add:0 },
+    { id:'edge',    name:'Fresh Edge',   inc:'+ crisp edging on walks & drive',        blurb:'Everything in The Cut, plus a sharp mechanical edge along your walks and driveway. The detail that makes a yard look finished.', add:15 },
+    { id:'premier', name:'Premier Trim', inc:'+ bed trim & detail finish',             blurb:'Our full finish — Fresh Edge plus tidy bed lines and the extra detail work. For the yard you want to show off.', add:35 }
+  ]
+};
+/* ===================================================================== */
+
+const fmtPhone = p => `(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`;
+document.getElementById('brand').textContent   = CONFIG.BUSINESS_NAME;
+document.getElementById('eyebrow').textContent = CONFIG.SERVICE_AREA;
+document.getElementById('footArea').textContent= CONFIG.FOOTER_AREA;
+['navnum','footNum'].forEach(id=>{const e=document.getElementById(id);e.textContent=fmtPhone(CONFIG.PHONE);e.href=`tel:+1${CONFIG.PHONE}`;});
+document.getElementById('ctaCall').textContent = `or call ${fmtPhone(CONFIG.PHONE)}`;
+document.getElementById('finalCall').href = `tel:+1${CONFIG.PHONE}`;
+document.getElementById('finalCall').textContent = `Call ${fmtPhone(CONFIG.PHONE)}`;
+const askText = `sms:+1${CONFIG.PHONE}?&body=${encodeURIComponent('Hi '+CONFIG.BUSINESS_NAME+' — I have a question about a lawn quote.')}`;
+document.getElementById('heroText').href = askText;
+
+// services cards (single source of truth = CONFIG.TIERS)
+document.getElementById('serviceCards').innerHTML = CONFIG.TIERS.map(t=>
+  `<div class="card"><div class="cname">${t.name}</div><div class="cinc">${t.inc}</div><div class="cblurb">${t.blurb}</div></div>`
+).join('');
+
+// map (Esri World Imagery, no key) — hardened against the grey-box / sizing race
+const map = L.map('map',{zoomControl:true, attributionControl:true}).setView(CONFIG.MAP_CENTER, CONFIG.START_ZOOM);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{
+  maxZoom:21, maxNativeZoom:19, attribution:'Imagery &copy; Esri'
+}).addTo(map);
+const mapEl = document.getElementById('map');
+const fixSize = () => map.invalidateSize();
+map.whenReady(()=>setTimeout(fixSize,0));
+window.addEventListener('load',()=>setTimeout(fixSize,60));
+if(window.ResizeObserver) new ResizeObserver(fixSize).observe(mapEl);  // first layout pass fixes the grey box
+
+let points=[], vertexMarkers=[], poly=null, line=null, housePin=null, dragging=false;
+let searchedAddress="", shownPrice=0, selectedTier='cut', selectedCadence='Weekly';
+
+const chip=document.getElementById('chip'), undoBtn=document.getElementById('undoBtn'),
+      clearBtn=document.getElementById('clearBtn'), boxBtn=document.getElementById('boxBtn'),
+      emptyEl=document.getElementById('empty'), resultEl=document.getElementById('result'),
+      tiersEl=document.getElementById('tiers');
+const TRACE_MSG = "Tap the corners of your lawn — or tap “Box my lawn” for a quick start.";
+
+function areaSqFt(latlngs){
+  if(latlngs.length<3) return 0;
+  const R=6378137, d=Math.PI/180;
+  const lat0=(latlngs.reduce((s,p)=>s+p.lat,0)/latlngs.length)*d, c=Math.cos(lat0);
+  const xy=latlngs.map(p=>({x:R*(p.lng*d)*c, y:R*(p.lat*d)}));
+  let a=0; for(let i=0;i<xy.length;i++){const j=(i+1)%xy.length; a+=xy[i].x*xy[j].y - xy[j].x*xy[i].y;}
+  return Math.abs(a)/2 * 10.7639;
+}
+const roundTo = v => Math.round(v/CONFIG.ROUND_TO)*CONFIG.ROUND_TO;
+const basePrice = sqft => Math.max(CONFIG.MIN_PRICE, sqft*CONFIG.RATE_PER_SQFT);
+const tierPrice = (sqft,add) => roundTo(basePrice(sqft)+add);
+const tierById = id => CONFIG.TIERS.find(t=>t.id===id);
+
+// trace: tap to add corners, drag any corner to adjust (live price)
+const vtxIcon = L.divIcon({className:'vtx', iconSize:[16,16], iconAnchor:[8,8]});
+function drawShape(){
+  if(points.length>=3){
+    if(line){map.removeLayer(line);line=null;}
+    if(poly) poly.setLatLngs(points);
+    else poly=L.polygon(points,{color:'#5fb83f',weight:3,fillColor:'#5fb83f',fillOpacity:.28}).addTo(map);
+  }else{
+    if(poly){map.removeLayer(poly);poly=null;}
+    if(points.length===2){
+      if(line) line.setLatLngs(points);
+      else line=L.polyline(points,{color:'#5fb83f',weight:3,dashArray:'4 5'}).addTo(map);
+    }else if(line){map.removeLayer(line);line=null;}
+  }
+  undoBtn.disabled=clearBtn.disabled=points.length===0;
+  update();
+}
+function makeVertex(latlng){
+  const m=L.marker(latlng,{icon:vtxIcon,draggable:true,keyboard:false}).addTo(map);
+  const sync=()=>{const i=vertexMarkers.indexOf(m); if(i>-1){points[i]=m.getLatLng(); drawShape();}};
+  m.on('dragstart',()=>{dragging=true;});
+  m.on('drag',sync);
+  m.on('dragend',()=>{dragging=false; sync();});
+  return m;
+}
+function clearVertices(){ vertexMarkers.forEach(m=>map.removeLayer(m)); vertexMarkers=[]; }
+function addVertex(latlng){
+  points.push(latlng); vertexMarkers.push(makeVertex(latlng));
+  if(points.length===1) chip.textContent="Keep tapping each corner — drag a corner anytime to fix it.";
+  else if(points.length>=3) chip.textContent="Drag any corner to fine-tune. Add more for odd shapes.";
+  drawShape();
+}
+map.on('click', e=>addVertex(e.latlng));
+boxBtn.addEventListener('click', ()=>{
+  const b=map.getBounds(), c=map.getCenter();
+  const dLat=(b.getNorth()-b.getSouth())*0.18, dLng=(b.getEast()-b.getWest())*0.18;
+  points=[]; clearVertices();
+  [[c.lat+dLat,c.lng-dLng],[c.lat+dLat,c.lng+dLng],[c.lat-dLat,c.lng+dLng],[c.lat-dLat,c.lng-dLng]]
+    .forEach(p=>{const ll=L.latLng(p[0],p[1]); points.push(ll); vertexMarkers.push(makeVertex(ll));});
+  chip.textContent="Drag the corners to match your lawn.";
+  drawShape();
+});
+undoBtn.addEventListener('click', ()=>{
+  points.pop(); const m=vertexMarkers.pop(); if(m)map.removeLayer(m);
+  if(!points.length) chip.textContent=TRACE_MSG;
+  drawShape();
+});
+clearBtn.addEventListener('click', ()=>{ points=[]; clearVertices(); chip.textContent=TRACE_MSG; drawShape(); });
+
+const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+function animatePrice(to){
+  const el=document.getElementById('price');
+  if(reduce || dragging || to===shownPrice){el.textContent='$'+to;shownPrice=to;return;}
+  const from=shownPrice, start=performance.now(), dur=220;
+  (function step(t){const k=Math.min(1,(t-start)/dur);el.textContent='$'+Math.round(from+(to-from)*k);if(k<1)requestAnimationFrame(step);else{el.textContent='$'+to;shownPrice=to;}})(start);
+}
+function renderTiers(sqft){
+  tiersEl.innerHTML='';
+  CONFIG.TIERS.forEach(t=>{
+    const p=tierPrice(sqft,t.add);
+    const el=document.createElement('div');
+    el.className='tier'+(t.id===selectedTier?' sel':''); el.setAttribute('role','button'); el.tabIndex=0;
+    el.innerHTML=`<div><div class="tname">${t.name}</div><div class="tinc">${t.inc}</div></div><div class="tprice">$${p}</div>`;
+    const pick=()=>{selectedTier=t.id;update();};
+    el.addEventListener('click',pick);
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+    tiersEl.appendChild(el);
+  });
+}
+document.getElementById('cadrow').addEventListener('click',e=>{
+  const b=e.target.closest('.cad'); if(!b)return;
+  selectedCadence=b.dataset.cad;
+  document.querySelectorAll('#cadrow .cad').forEach(x=>x.classList.toggle('sel',x===b));
+  update();
+});
+function update(){
+  if(points.length<3){resultEl.classList.add('hidden');emptyEl.classList.remove('hidden');return;}
+  const sqft=areaSqFt(points), t=tierById(selectedTier), price=tierPrice(sqft,t.add);
+  emptyEl.classList.add('hidden'); resultEl.classList.remove('hidden');
+  document.getElementById('areaLine').textContent='≈ '+Math.round(sqft).toLocaleString()+' sq ft of lawn';
+  document.getElementById('perLabel').textContent='per cut · '+t.name;
+  renderTiers(sqft); animatePrice(price);
+  document.getElementById('ctaText').textContent='Text to book · '+t.name;
+  document.getElementById('agreenote').textContent=
+    `Texting sends your address and confirms you'd like to start ${t.name} at $${price}/cut, ${selectedCadence.toLowerCase()}. No contract — skip or stop anytime.`;
+  const body=`Hi ${CONFIG.BUSINESS_NAME} — I'd like to start service.`+
+    `\nAddress: ${searchedAddress||'(my address)'}`+
+    `\nService: ${t.name} — $${price}/cut`+
+    `\nSchedule: ${selectedCadence}`+
+    `\nI agree to begin service at this price. When can you start?`;
+  document.getElementById('ctaText').href=`sms:+1${CONFIG.PHONE}?&body=${encodeURIComponent(body)}`;
+}
+// address: live autocomplete (Photon) + geocode with Nominatim fallback
+const addr=document.getElementById('addr'), findBtn=document.getElementById('findBtn'),
+      acList=document.getElementById('acList');
+let acItems=[], acIndex=-1, acTimer=null, lastQuery="";
+const GEO_BIAS = `&lat=${CONFIG.MAP_CENTER[0]}&lon=${CONFIG.MAP_CENTER[1]}`;
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function labelFor(p){
+  const l1=[p.housenumber,p.street||p.name].filter(Boolean).join(' ') || p.name || p.city || '';
+  const l2=[(p.city||p.district), p.state, p.postcode].filter(Boolean).join(', ');
+  return { l1: l1||l2, l2: l1?l2:'' };
+}
+function closeAC(){ acList.classList.add('hidden'); acList.innerHTML=''; acItems=[]; acIndex=-1; addr.setAttribute('aria-expanded','false'); }
+function flyTo(lat,lon){
+  map.setView([lat,lon],CONFIG.HOUSE_ZOOM);
+  if(housePin)map.removeLayer(housePin);
+  housePin=L.circleMarker([lat,lon],{radius:7,color:'#0d2410',weight:2,fillColor:'#fff',fillOpacity:1}).addTo(map);
+  chip.textContent=TRACE_MSG;
+  setTimeout(fixSize,0);
+}
+function selectFeature(f){
+  const [lon,lat]=f.geometry.coordinates, {l1,l2}=labelFor(f.properties);
+  addr.value=[l1,l2].filter(Boolean).join(', '); searchedAddress=addr.value;
+  closeAC(); addr.blur(); flyTo(lat,lon);
+}
+function renderAC(features){
+  acItems=(features||[]).filter(f=>f.geometry&&f.geometry.coordinates);
+  if(!acItems.length){ closeAC(); return; }
+  acList.innerHTML='';
+  acItems.forEach(f=>{
+    const {l1,l2}=labelFor(f.properties);
+    const b=document.createElement('button'); b.type='button'; b.className='acitem'; b.setAttribute('role','option');
+    b.innerHTML=`<b>${esc(l1)}</b>${l2?`<span>${esc(l2)}</span>`:''}`;
+    b.addEventListener('click',()=>selectFeature(f));
+    acList.appendChild(b);
+  });
+  acList.classList.remove('hidden'); addr.setAttribute('aria-expanded','true'); acIndex=-1;
+}
+async function suggest(q){
+  try{
+    const r=await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=5&lang=en${GEO_BIAS}`);
+    const d=await r.json();
+    if(lastQuery===q) renderAC(d.features);
+  }catch(_){ /* autocomplete is best-effort — stay silent, Find button still works */ }
+}
+function highlightAC(){
+  [...acList.children].forEach((c,i)=>c.classList.toggle('act',i===acIndex));
+  if(acIndex>=0 && acList.children[acIndex]) acList.children[acIndex].scrollIntoView({block:'nearest'});
+}
+addr.addEventListener('input',()=>{
+  const q=addr.value.trim(); lastQuery=q; clearTimeout(acTimer);
+  if(q.length<3){ closeAC(); return; }
+  acTimer=setTimeout(()=>suggest(q),250);
+});
+addr.addEventListener('keydown',e=>{
+  const open=!acList.classList.contains('hidden') && acItems.length;
+  if(open && e.key==='ArrowDown'){ e.preventDefault(); acIndex=Math.min(acIndex+1,acItems.length-1); highlightAC(); }
+  else if(open && e.key==='ArrowUp'){ e.preventDefault(); acIndex=Math.max(acIndex-1,0); highlightAC(); }
+  else if(e.key==='Enter'){ if(open && acIndex>=0){ e.preventDefault(); selectFeature(acItems[acIndex]); } else geocode(); }
+  else if(e.key==='Escape'){ closeAC(); }
+});
+document.addEventListener('click', e=>{ if(!e.target.closest('.acwrap')) closeAC(); });
+
+async function geocode(){
+  const q=addr.value.trim(); if(!q) return;
+  closeAC(); findBtn.disabled=true; findBtn.textContent='Finding…';
+  try{
+    let lat, lon, ok=false;
+    try{
+      const pd=await (await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=1${GEO_BIAS}`)).json();
+      if(pd.features && pd.features.length){ [lon,lat]=pd.features[0].geometry.coordinates; ok=true; }
+    }catch(_){}
+    if(!ok){
+      const nd=await (await fetch('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=us&q='+encodeURIComponent(q),{headers:{'Accept':'application/json'}})).json();
+      if(nd && nd.length){ lat=+nd[0].lat; lon=+nd[0].lon; ok=true; }
+    }
+    if(ok){ searchedAddress=q; flyTo(lat,lon); }
+    else chip.textContent="Couldn't find that — try adding city & state, or drag the map to your house.";
+  }catch(err){ chip.textContent="Address lookup is busy — drag the map to your house and trace it."; }
+  finally{ findBtn.disabled=false; findBtn.textContent='Find my lawn'; }
+}
+findBtn.addEventListener('click',geocode);
+</script>
+</body>
+</html>

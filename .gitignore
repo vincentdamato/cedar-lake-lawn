@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+app/node_modules/
+
+# build output
+dist/
+app/dist/
+
+# local env (real values live in the host build env, not the repo)
+.env
+.env.*
+!.env.example
+app/.env
+app/.env.*
+!app/.env.example
+
+# misc
+.DS_Store
+Thumbs.db
+*.log
