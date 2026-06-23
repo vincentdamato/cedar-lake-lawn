@@ -34,11 +34,22 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 // --- static brand wiring -------------------------------------------------
 $('brand').textContent = CONFIG.BUSINESS_NAME;
 $('eyebrow').textContent = CONFIG.SERVICE_AREA;
-$('footArea').textContent = CONFIG.FOOTER_AREA;
-for (const id of ['navnum', 'footNum']) {
-  const e = $(id) as HTMLAnchorElement;
-  e.textContent = phoneDisplay;
-  e.href = `tel:+1${CONFIG.PHONE}`;
+{
+  const nav = $('navnum') as HTMLAnchorElement;
+  nav.textContent = phoneDisplay;
+  nav.href = `tel:+1${CONFIG.PHONE}`;
+}
+// footer
+$('footBrand').textContent = CONFIG.BUSINESS_NAME;
+$('footArea').textContent = CONFIG.SERVICE_AREA;
+{
+  const fc = $('footCall') as HTMLAnchorElement;
+  fc.textContent = `Call ${phoneDisplay}`;
+  fc.href = `tel:+1${CONFIG.PHONE}`;
+  ($('footText') as HTMLAnchorElement).href = smsHref(
+    'Hi ' + CONFIG.BUSINESS_NAME + ' — I have a question about lawn care.'
+  );
+  $('footCopy').textContent = `© ${new Date().getFullYear()} ${CONFIG.BUSINESS_NAME}`;
 }
 {
   const call = $('ctaCall') as HTMLAnchorElement;
@@ -294,6 +305,29 @@ async function find() {
   }
 }
 findBtn.addEventListener('click', find);
+
+// "Use my location" — geolocate and snap to the parcel (ideal for someone in their yard)
+const locBtn = $('locBtn') as HTMLButtonElement;
+if ('geolocation' in navigator) {
+  locBtn.classList.remove('hidden');
+  locBtn.addEventListener('click', () => {
+    locBtn.disabled = true;
+    closeAC();
+    chip.textContent = 'Getting your location…';
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        locBtn.disabled = false;
+        lookupPoint(pos.coords.longitude, pos.coords.latitude);
+      },
+      () => {
+        locBtn.disabled = false;
+        chip.textContent = 'Couldn’t get your location — type your address instead.';
+        addr.focus();
+      },
+      { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+    );
+  });
+}
 
 // --- render --------------------------------------------------------------
 function render(r: ParcelResult) {

@@ -70,6 +70,10 @@
           <div class="aclist hidden" id="acList" role="listbox"></div>
         </div>
         <button class="find" id="findBtn">Get my price</button>
+        <button class="useloc hidden" id="locBtn" type="button">
+          <svg class="pin" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.6A2.6 2.6 0 1 1 12 6.4a2.6 2.6 0 0 1 0 5.2z" fill="currentColor"/></svg>
+          Use my current location
+        </button>
       </div>
       <div class="grid">
         <div class="mapcol">
@@ -205,7 +209,7 @@
 </section>
 
 <!-- SWITCH OFFER -->
-<section class="band finalcta">
+<section id="switch" class="band finalcta">
   <div class="wrap narrow">
     <div class="eyebrow">New customers</div>
     <h2>Already have a lawn service? Give us a shot.</h2>
@@ -230,9 +234,36 @@
 </section>
 
 <footer class="site">
-  <div class="wrap frow">
-    <div class="disclaimer">Quotes are an instant estimate measured from your lot on county maps. We confirm the final price in person — it's usually right on the money. <span id="footArea">Serving Washington, Waukesha &amp; Ozaukee County, WI.</span></div>
-    <div><a id="footNum" href="#" style="text-decoration:none;font-weight:600;color:var(--pine)">(262) 343-1594</a></div>
+  <div class="wrap">
+    <div class="footgrid">
+      <div class="footbrand">
+        <div class="mark"><span class="leaf"></span><span id="footBrand">Cedar Lake Lawn Co.</span></div>
+        <p>Fair, reliable lawn care for SE Wisconsin — careful work, an honest price, and no contracts. We'd love to earn your business.</p>
+      </div>
+      <nav class="footcol" aria-label="Services">
+        <h4>Services</h4>
+        <a href="#services">The Cut</a>
+        <a href="#services">Fresh Edge</a>
+        <a href="#services">Premier Trim</a>
+        <a href="#quote">Get an instant price</a>
+      </nav>
+      <nav class="footcol" aria-label="Company">
+        <h4>Company</h4>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="#switch">Switch &amp; save</a>
+      </nav>
+      <div class="footcol">
+        <h4>Contact</h4>
+        <a id="footCall" href="#">Call (262) 343-1594</a>
+        <a id="footText" href="#">Text us</a>
+        <span id="footArea">Washington · Waukesha · Ozaukee County, WI</span>
+      </div>
+    </div>
+    <div class="footlegal">
+      <p class="disclaimer">Quotes are instant estimates measured from public county parcel maps and are confirmed in person before any work begins — the final price can vary with the actual lawn and conditions. Wisconsin sales tax applies to lawn and landscaping services. No contract required; skip or stop anytime.</p>
+      <span id="footCopy">© Cedar Lake Lawn Co.</span>
+    </div>
   </div>
 </footer>
 
