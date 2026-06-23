@@ -37,12 +37,6 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-
 
 /* hero */
 .hero{padding-top:54px;padding-bottom:18px;background:linear-gradient(180deg,#eef7e6 0%,var(--paper) 64%)}
-.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center}
-.herotext{min-width:0}
-.herofig{justify-self:center;width:100%;max-width:380px}
-.herofig svg{width:100%;height:auto;display:block;filter:drop-shadow(0 14px 26px rgba(31,64,49,.16))}
-/* friendly highlighter swash under a hero word */
-.h1mark{background:linear-gradient(180deg,transparent 62%,rgba(95,184,63,.30) 62%);border-radius:2px;padding:0 .04em}
 .heroctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:16px;padding:14px 24px;border-radius:12px;border:0;cursor:pointer;font-family:inherit;transition:background .14s,color .14s,border-color .14s}
 .btn:active{transform:translateY(1px)}
@@ -52,7 +46,7 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-
 .btn-ghost:hover{border-color:var(--moss)}
 .trustline{display:flex;gap:9px 20px;flex-wrap:wrap;margin-top:28px;color:var(--moss);font-weight:600;font-size:14.5px}
 .trustline span{display:inline-flex;align-items:center;gap:8px}
-.dot{width:9px;height:9px;border-radius:0 60% 60% 60%;background:var(--spring);transform:rotate(45deg);display:inline-block}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--spring);display:inline-block}
 
 /* tool */
 .tool{background:var(--card);border:1px solid var(--line-solid);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;margin-top:8px}
@@ -186,8 +180,6 @@ footer.site{border-top:1px solid var(--line-solid);padding:46px 0 40px;color:#5d
   .cards3,.promise,.steps{grid-template-columns:1fr}
   .navnum{display:none}
   .hero{padding-top:38px}
-  .hero .wrap{grid-template-columns:1fr}
-  .herofig{max-width:240px;margin-top:14px}
   /* WCAG 2.5.5 touch targets ≥44px */
   .cad{min-height:44px}
   .find{min-height:48px}

@@ -42,8 +42,8 @@ export const CONFIG = {
   FETCH_TIMEOUT_MS: 8000,
 
   // map defaults — MapLibre uses [lng, lat]
-  MAP_CENTER: [-88.1834, 43.4253] as [number, number], // West Bend, WI
-  START_ZOOM: 12,
+  MAP_CENTER: [-88.246, 43.381] as [number, number], // Big & Little Cedar Lake, WI
+  START_ZOOM: 12.5,
   PARCEL_ZOOM: 18,
 
   // Mowable lawn = min(lot × COVERAGE_FACTOR, MOW_CAP_SQFT). We estimate from the
