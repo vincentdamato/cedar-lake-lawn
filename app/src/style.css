@@ -15,16 +15,15 @@ a{color:inherit}
 .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
 .narrow{max-width:720px}
 
-/* serif display — pin the optical axes so Fraunces reads "surveyor", not "bakery" */
+/* clean, readable display — one humanist sans throughout; weight carries the hierarchy */
 h1,h2,h3,.mark,.card .cname,.pcard h3,.faq summary,.oa h3,.tier .tname{
-  font-family:"Fraunces",Georgia,serif;
-  font-variation-settings:"opsz" 120,"SOFT" 0,"WONK" 0;
+  font-family:'Hanken Grotesk',system-ui,sans-serif;
 }
 
 /* header */
 header.site{border-bottom:1px solid var(--line-solid);background:rgba(244,242,235,.92);backdrop-filter:saturate(1.05) blur(6px);position:sticky;top:0;z-index:500}
 .bar{display:flex;align-items:center;justify-content:space-between;height:64px}
-.mark{font-weight:500;font-size:21px;letter-spacing:-.01em;color:var(--pine);display:flex;align-items:center;gap:9px}
+.mark{font-weight:700;font-size:21px;letter-spacing:-.02em;color:var(--pine);display:flex;align-items:center;gap:9px}
 .navcall{display:flex;align-items:center;gap:16px}
 .navnum{font-weight:600;font-size:15px;color:var(--moss);text-decoration:none;transition:color .14s}
 .navnum:hover{color:var(--pine)}
@@ -36,9 +35,9 @@ section{padding:clamp(56px,8vw,92px) 0;border-top:1px solid var(--line-solid)}
 .band{background:var(--band)}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);display:flex;align-items:center;gap:11px}
 .eyebrow::before{content:"";width:22px;height:1px;background:var(--spring);flex:none}
-h1{font-weight:380;letter-spacing:-.02em;font-size:clamp(40px,6vw,64px);line-height:1.03;margin:.34em 0 .32em;max-width:19ch}
-h2{font-weight:440;letter-spacing:-.018em;font-size:clamp(28px,4vw,42px);line-height:1.1;margin:.3em 0 .4em;max-width:24ch}
-h3{font-weight:440}
+h1{font-weight:800;letter-spacing:-.025em;font-size:clamp(37px,5.4vw,56px);line-height:1.06;margin:.3em 0 .3em;max-width:20ch}
+h2{font-weight:700;letter-spacing:-.02em;font-size:clamp(26px,3.4vw,38px);line-height:1.14;margin:.3em 0 .4em;max-width:24ch}
+h3{font-weight:700}
 .lede{font-size:clamp(16px,2vw,19px);color:#3a463c;max-width:56ch;margin:0}
 .seclede{font-size:17px;color:#3a463c;max-width:60ch;margin:0 0 32px}
 
@@ -104,7 +103,7 @@ h3{font-weight:440}
 .tier{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line-solid);border-radius:var(--radius);padding:12px 14px;cursor:pointer;background:#fbfbf7;transition:border-color .12s,background .12s}
 .tier:hover{border-color:var(--moss)}
 .tier.sel{border-color:var(--pine);background:var(--tint)}
-.tier .tname{font-weight:440;font-size:16px}
+.tier .tname{font-weight:700;font-size:15.5px;letter-spacing:-.01em}
 .tier .tinc{font-size:12.5px;color:#5d6c63;margin-top:1px}
 .tier .tprice{font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:600;font-size:18px;color:var(--pine);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
 .cadrow{display:flex;gap:7px;flex-wrap:wrap}
@@ -124,7 +123,7 @@ h3{font-weight:440}
 
 /* out-of-area capture */
 .oa{padding:6px 0}
-.oa h3{font-weight:440;font-size:20px;margin:0 0 6px}
+.oa h3{font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0 0 6px}
 .oa p{margin:0 0 14px;font-size:14.5px;color:#475a4e}
 .oa input{width:100%;border:1px solid var(--line-solid);border-radius:var(--radius);padding:11px 13px;font:inherit;background:#fbfbf7;margin-bottom:8px}
 .oa .done{color:var(--pine);font-weight:600}
@@ -134,7 +133,7 @@ h3{font-weight:440}
 /* services */
 .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card{background:var(--card);border:1px solid var(--line-solid);border-radius:var(--radius);padding:24px}
-.card .cname{font-weight:440;font-size:21px;letter-spacing:-.01em}
+.card .cname{font-weight:700;font-size:21px;letter-spacing:-.015em}
 .card .cinc{font-size:13px;font-weight:600;color:var(--pine);margin-top:5px}
 .card .cblurb{font-size:14.5px;color:#475a4e;margin-top:11px;line-height:1.55}
 .undertool{font-size:14px;color:var(--moss);margin-top:18px}
@@ -142,20 +141,20 @@ h3{font-weight:440}
 /* why-us */
 .promise{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:6px}
 .pcard{background:var(--card);border:1px solid var(--line-solid);border-radius:var(--radius);padding:24px}
-.pcard h3{font-weight:440;font-size:19px;margin:0 0 8px;letter-spacing:-.01em;line-height:1.2}
+.pcard h3{font-weight:700;font-size:18px;margin:0 0 8px;letter-spacing:-.015em;line-height:1.28}
 .pcard p{margin:0;font-size:14.5px;color:#475a4e;line-height:1.6}
 
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .step{position:relative;padding-top:6px}
 .step .num{font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:600;font-size:14px;color:var(--paper);background:var(--pine);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-.step h3{font-weight:440;font-size:19px;margin:0 0 6px}
+.step h3{font-weight:700;font-size:18px;letter-spacing:-.015em;margin:0 0 6px}
 .step p{margin:0;font-size:14.5px;color:#475a4e;line-height:1.55}
 
 /* faq */
 .faq{display:flex;flex-direction:column;gap:10px;margin-top:10px}
 .faq details{background:var(--card);border:1px solid var(--line-solid);border-radius:var(--radius);overflow:hidden}
-.faq summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:440;font-size:17px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:700;font-size:16.5px;letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-size:23px;font-weight:400;color:var(--moss);line-height:1;transition:transform .15s;font-family:'Hanken Grotesk',system-ui,sans-serif}
 .faq details[open] summary::after{transform:rotate(45deg)}
