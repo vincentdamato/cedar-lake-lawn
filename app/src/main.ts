@@ -22,6 +22,14 @@ const escapeHtml = (s: string) =>
   s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c] as string);
 const titleCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 const phoneDisplay = fmtPhone(CONFIG.PHONE);
+// standard sms: deep link (a stray "&" after "?" drops the prefill on some Android)
+const smsHref = (body: string) => `sms:+1${CONFIG.PHONE}?body=${encodeURIComponent(body)}`;
+// device hints, computed once
+const TOUCH =
+  window.matchMedia('(pointer: coarse)').matches ||
+  navigator.maxTouchPoints > 0 ||
+  /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // --- static brand wiring -------------------------------------------------
 $('brand').textContent = CONFIG.BUSINESS_NAME;
@@ -39,15 +47,15 @@ for (const id of ['navnum', 'footNum']) {
   const fin = $('finalCall') as HTMLAnchorElement;
   fin.href = `tel:+1${CONFIG.PHONE}`;
   fin.textContent = `Call ${phoneDisplay}`;
-  ($('heroText') as HTMLAnchorElement).href =
-    `sms:+1${CONFIG.PHONE}?&body=${encodeURIComponent('Hi ' + CONFIG.BUSINESS_NAME + ' — I have a question about a lawn quote.')}`;
+  ($('heroText') as HTMLAnchorElement).href = smsHref(
+    'Hi ' + CONFIG.BUSINESS_NAME + ' — I have a question about a lawn quote.'
+  );
   $('offerPct').textContent = String(CONFIG.WELCOME_DISCOUNT_PCT);
-  ($('switchText') as HTMLAnchorElement).href =
-    `sms:+1${CONFIG.PHONE}?&body=${encodeURIComponent(
-      'Hi ' +
-        CONFIG.BUSINESS_NAME +
-        ` — I'd like to switch lawn services. I currently pay $____ for my lawn. Can you match it and take ${CONFIG.WELCOME_DISCOUNT_PCT}% off?`
-    )}`;
+  ($('switchText') as HTMLAnchorElement).href = smsHref(
+    'Hi ' +
+      CONFIG.BUSINESS_NAME +
+      ` — I'd like to switch lawn services. I currently pay $____ for my lawn. Can you match it and take ${CONFIG.WELCOME_DISCOUNT_PCT}% off?`
+  );
 }
 $('trustline').innerHTML = CONFIG.TRUST.map(
   (t) => `<span><span class="dot"></span>${t}</span>`
@@ -104,6 +112,14 @@ function setPanel(state: PanelState) {
   resultEl.classList.toggle('hidden', state !== 'result');
   outAreaEl.classList.toggle('hidden', state !== 'outarea');
   errEl.classList.toggle('hidden', state !== 'error');
+  // on a phone, dismiss the keyboard and bring the answer into view so it isn't below the fold
+  if (TOUCH && (state === 'result' || state === 'outarea' || state === 'error')) {
+    addr.blur();
+    const el = state === 'result' ? resultEl : state === 'outarea' ? outAreaEl : errEl;
+    requestAnimationFrame(() =>
+      el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' })
+    );
+  }
 }
 ($('retryBtn') as HTMLButtonElement).addEventListener('click', () => retry?.());
 
@@ -210,6 +226,7 @@ document.addEventListener('click', (e) => {
 function selectMatch(m: AddressMatch) {
   closeAC();
   addr.value = m.address;
+  addr.blur();
   runLookup(() => getParcelByObjectId(m.objectId), () => selectMatch(m));
 }
 function lookupPoint(lng: number, lat: number) {
@@ -241,7 +258,7 @@ async function find() {
   retry = find;
   setPanel('loading');
   findBtn.disabled = true;
-  findBtn.textContent = 'Finding…';
+  findBtn.textContent = 'Pricing…';
   try {
     const matches = await searchAddress(q);
     if (id !== reqId) return;
@@ -257,7 +274,11 @@ async function find() {
       const r = await getParcelAtPoint(g.lng, g.lat);
       if (id === reqId) render(r);
     } else {
-      showOutArea("We couldn't find that address.", 'Double-check it, or leave your info and we’ll take it from there.');
+      showOutArea(
+        "We couldn't find that address.",
+        'Check the spelling and try again, or tap your house on the map and we’ll measure from there.',
+        'Couldn’t find that address — try the spelling, or tap the map.'
+      );
     }
   } catch {
     if (id === reqId) {
@@ -268,7 +289,7 @@ async function find() {
   } finally {
     if (id === reqId) {
       findBtn.disabled = false;
-      findBtn.textContent = 'Find my lawn';
+      findBtn.textContent = 'Get my price';
     }
   }
 }
@@ -290,9 +311,9 @@ function render(r: ParcelResult) {
   }
   showParcel(map, r.geometry);
   setPanel('result');
-  chip.textContent = r.large
-    ? 'Big lot — we’ll confirm the exact mowable area with you.'
-    : 'Lawn area estimated from your lot.';
+  chip.textContent =
+    (r.large ? 'Big lot — we’ll confirm the exact mowable area with you.' : 'Lawn area estimated from your lot.') +
+    (TOUCH ? ' Use two fingers to move the map.' : '');
   updatePanel();
 }
 
@@ -329,9 +350,12 @@ function smsBody(price: number): string {
   const sizeLine = large
     ? `\nProperty: ${(parcel?.acres ?? 0).toFixed(2)} ac lot (large — please confirm mowable area)`
     : `\nLawn: ~${Math.round(areaSqft()).toLocaleString()} sq ft${adjustedSqft != null ? ' (adjusted on map)' : ''}`;
+  const oneTime = selectedCadence === 'One-time';
   const closing = large
-    ? `\nPlease confirm the price for my property. When can you start?`
-    : `\nI agree to begin service at this price. When can you start?`;
+    ? `\nPlease confirm the price for my property. When can you come out?`
+    : oneTime
+      ? `\nI'd like to book a one-time cut at this price. When can you come out?`
+      : `\nI agree to begin service at this price. When can you start?`;
   const taxNote =
     CONFIG.SHOW_TAX && !large
       ? ` (+ ${Math.round(CONFIG.TAX_RATE * 100)}% WI tax ≈ $${withTax(price).toFixed(2)})`
@@ -372,12 +396,15 @@ function updatePanel() {
 
   renderTiers();
 
+  const oneTime = selectedCadence === 'One-time';
   const cta = $('ctaText') as HTMLAnchorElement;
   cta.textContent = 'Text to book · ' + t.name;
   $('agreenote').textContent = large
     ? `Texting sends your address for a ${t.name} quote starting at $${price}/cut, ${selectedCadence.toLowerCase()}. We confirm the exact price for your property. No contract.`
-    : `Texting sends your address and confirms you’d like to start ${t.name} at $${price}/cut, ${selectedCadence.toLowerCase()}. No contract — skip or stop anytime.`;
-  cta.href = `sms:+1${CONFIG.PHONE}?&body=${encodeURIComponent(smsBody(price))}`;
+    : oneTime
+      ? `Texting sends your address to book a one-time ${t.name} at $${price}/cut. No contract, no commitment.`
+      : `Texting sends your address and confirms you’d like to start ${t.name} at $${price}/cut, ${selectedCadence.toLowerCase()}. No contract — skip or stop anytime.`;
+  cta.href = smsHref(smsBody(price));
   announce(
     `$${price} ${large ? 'starting ' : ''}per cut, ${t.name}, ` +
       (large ? 'large property — we confirm on site.' : `about ${Math.round(sqft).toLocaleString()} square feet.`)
@@ -394,10 +421,6 @@ $('cadrow').addEventListener('click', (e) => {
 
 // Capture the lead on "Text to book" tap (so it's not lost if the text never sends),
 // and on desktop — where sms: links do nothing — reveal a copy-the-message fallback.
-const TOUCH =
-  window.matchMedia('(pointer: coarse)').matches ||
-  navigator.maxTouchPoints > 0 ||
-  /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 ($('ctaText') as HTMLAnchorElement).addEventListener('click', (e) => {
   if (!parcel?.served) return;
   const t = tierById(selectedTier)!;
@@ -413,7 +436,9 @@ const TOUCH =
   });
   if (!TOUCH) {
     e.preventDefault();
-    $('sfNum').textContent = phoneDisplay;
+    const sfNum = $('sfNum') as HTMLAnchorElement;
+    sfNum.textContent = phoneDisplay;
+    sfNum.href = `tel:+1${CONFIG.PHONE}`;
     $('sfMsg').textContent = smsBody(price);
     $('smsFallback').classList.remove('hidden');
   }
@@ -428,7 +453,7 @@ const TOUCH =
 });
 
 // --- out-of-area capture -------------------------------------------------
-function showOutArea(head?: string, body?: string) {
+function showOutArea(head?: string, body?: string, chipText?: string) {
   setPanel('outarea');
   clearParcel(map);
   if (head) $('oaHead').textContent = head;
@@ -438,7 +463,7 @@ function showOutArea(head?: string, body?: string) {
   form.classList.remove('hidden');
   const ob = form.querySelector('button') as HTMLButtonElement | null;
   if (ob) ob.disabled = false;
-  chip.textContent = 'Outside our service area for now.';
+  chip.textContent = chipText || 'Outside our service area for now.';
   announce(head || 'Outside our service area — leave your info and we’ll reach out.');
 }
 ($('oaForm') as HTMLFormElement).addEventListener('submit', async (e) => {

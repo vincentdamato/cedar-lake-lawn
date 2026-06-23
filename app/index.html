@@ -9,6 +9,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&display=swap" />
+<!-- warm up the parcel + tile + geocoder hosts so the first quote isn't DNS/TLS-blocked -->
+<link rel="preconnect" href="https://services3.arcgis.com" crossorigin />
+<link rel="preconnect" href="https://server.arcgisonline.com" crossorigin />
+<link rel="dns-prefetch" href="https://geocoding.geo.census.gov" />
 <meta name="theme-color" content="#1f4031" />
 <meta name="robots" content="index,follow" />
 <!-- social share preview (Nextdoor / Facebook / iMessage) -->
@@ -39,7 +43,7 @@
   <div class="wrap">
     <div class="eyebrow" id="eyebrow">Washington · Waukesha · Ozaukee County, WI</div>
     <h1>Lawn care you can count on.</h1>
-    <p class="lede">We're your neighbors — a small, local crew that shows up on schedule, does careful work, and charges a fair, competitive price. Get a real quote in seconds, book by text, and skip the contract. We'd love the chance to earn your business.</p>
+    <p class="lede">A small local crew that shows up on schedule and charges a fair, honest price. Get a real quote in seconds and book by text — no contract. We'd love to earn your business.</p>
     <div class="heroctas">
       <a class="btn btn-primary" href="#quote">Get my price</a>
       <a class="btn btn-ghost" id="heroText" href="#">Text us a question</a>
@@ -62,10 +66,10 @@
     <div class="tool" aria-label="Instant lawn quote">
       <div class="searchrow">
         <div class="acwrap">
-          <input id="addr" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Start typing your address…" aria-label="Your address" aria-autocomplete="list" aria-expanded="false" aria-controls="acList" role="combobox" />
+          <input id="addr" type="search" inputmode="text" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Start typing your address…" aria-label="Your address" aria-autocomplete="list" aria-expanded="false" aria-controls="acList" role="combobox" />
           <div class="aclist hidden" id="acList" role="listbox"></div>
         </div>
-        <button class="find" id="findBtn">Find my lawn</button>
+        <button class="find" id="findBtn">Get my price</button>
       </div>
       <div class="grid">
         <div class="mapcol">
@@ -96,7 +100,7 @@
             <div class="agreenote" id="agreenote"></div>
             <a class="cta2" id="ctaCall" href="#">or call (262) 343-1594</a>
             <div class="smsfallback hidden" id="smsFallback">
-              <p>On a computer? Text this to <b id="sfNum"></b>:</p>
+              <p>On a computer? Text this to <a id="sfNum" href="#"></a>:</p>
               <div class="sfMsg" id="sfMsg"></div>
               <button class="cta2" id="sfCopy" type="button">Copy message</button>
             </div>
@@ -106,7 +110,7 @@
             <h3 id="oaHead">We're not in that area yet.</h3>
             <p id="oaBody">We're serving Washington, Waukesha &amp; Ozaukee County right now. Leave your address and we'll reach out the moment we reach you.</p>
             <form id="oaForm">
-              <input id="oaContact" type="text" placeholder="Phone or email" aria-label="Phone or email" required />
+              <input id="oaContact" type="text" placeholder="Phone or email" aria-label="Phone or email" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" required />
               <button class="cta" type="submit">Notify me when you're here</button>
             </form>
             <div class="done hidden" id="oaDone">Thanks — we'll be in touch. You can also text us anytime at (262) 343-1594.</div>
@@ -172,7 +176,7 @@
     <div class="eyebrow">Good to know</div>
     <h2>Questions, answered.</h2>
     <div class="faq">
-      <details>
+      <details open>
         <summary>What's included in a cut?</summary>
         <p>Every visit is a mow, a trim along the edges, and a full blow-off of your walks and drive. Fresh Edge adds a crisp mechanical edge; Premier adds tidy bed lines and detail work. Pick your level right in the quote tool.</p>
       </details>
