@@ -4,11 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Cedar Lake Lawn Co. — Instant Lawn Quote · SE Wisconsin</title>
-<meta name="description" content="Type your address and get a real lawn-care price, measured from your actual lot — minus the house. No contract. Serving Washington, Waukesha & Ozaukee County, WI." />
+<meta name="description" content="Enter your address and get a real lawn-care price, sized from your actual lot on county parcel maps. A fixed rate per cut, confirmed on-site. No contract. Serving Washington, Waukesha & Ozaukee County, WI." />
 <link rel="icon" type="image/svg+xml" href="/leaf.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,380;9..144,440;9..144,560&family=Hanken+Grotesk:wght@400;500;600&display=swap" />
 <!-- warm up the parcel + tile + geocoder hosts so the first quote isn't DNS/TLS-blocked -->
 <link rel="preconnect" href="https://services3.arcgis.com" crossorigin />
 <link rel="preconnect" href="https://server.arcgisonline.com" crossorigin />
@@ -19,18 +19,18 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Cedar Lake Lawn Co." />
 <meta property="og:title" content="Instant Lawn Quote — Cedar Lake Lawn Co." />
-<meta property="og:description" content="Type your address, get a real price measured from your actual lawn. No contract. Washington, Waukesha & Ozaukee County, WI." />
+<meta property="og:description" content="Enter your address, get a real price sized from your actual lot on county parcel maps. A fixed rate per cut. No contract. Washington, Waukesha & Ozaukee County, WI." />
 <meta property="og:locale" content="en_US" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Instant Lawn Quote — Cedar Lake Lawn Co." />
-<meta name="twitter:description" content="Type your address, get a real price measured from your actual lawn. No contract. SE Wisconsin." />
+<meta name="twitter:description" content="Enter your address, get a real price sized from your actual lot on county parcel maps. No contract. SE Wisconsin." />
 </head>
 <body>
 <div id="sr" class="sronly" role="status" aria-live="polite"></div>
 
 <header class="site">
   <div class="wrap bar">
-    <div class="mark"><span class="leaf"></span><span id="brand">Cedar Lake Lawn Co.</span></div>
+    <div class="mark"><span id="brand">Cedar Lake Lawn Co.</span></div>
     <div class="navcall">
       <a class="navnum" id="navnum" href="#">(262) 343-1594</a>
       <a class="pill" href="#quote">Get my price</a>
@@ -43,16 +43,16 @@
   <div class="wrap">
     <div class="herotext">
       <div class="eyebrow" id="eyebrow">Washington · Waukesha · Ozaukee County, WI</div>
-      <h1>Lawn care you can count on.</h1>
-      <p class="lede">A small local crew that shows up on schedule and charges a fair, honest price. Get a real quote in seconds and book by text — no contract. We'd love to earn your business.</p>
+      <h1>A real price for your lawn, measured from your own lot.</h1>
+      <p class="lede">Cedar Lake Lawn Co. is a locally owned crew serving the lake country of Washington, Waukesha, and Ozaukee County. Enter your address and we size your lawn from county parcel records — then quote a fixed price per cut, confirmed on-site, with no contract to sign.</p>
       <div class="heroctas">
         <a class="btn btn-primary" href="#quote">Get my price</a>
         <a class="btn btn-ghost" id="heroText" href="#">Text us a question</a>
       </div>
       <div class="trustline" id="trustline">
-        <span><span class="dot"></span>Locally owned</span>
-        <span><span class="dot"></span>No contracts</span>
-        <span><span class="dot"></span>Same crew every time</span>
+        <span>Locally owned</span>
+        <span>No contracts</span>
+        <span>Same crew every time</span>
       </div>
     </div>
   </div>
@@ -62,8 +62,8 @@
 <section id="quote" class="band">
   <div class="wrap">
     <div class="eyebrow">Instant quote</div>
-    <h2>See your price in about ten seconds.</h2>
-    <p class="seclede">Type your address — we size your lawn from your lot on county maps and price it on the spot. No phone tag, no guessing. We confirm in person, and it's usually right on the money.</p>
+    <h2>Your lawn, sized on the map from county parcel records.</h2>
+    <p class="seclede">Enter your address and we locate your lot in the public county record, set aside the house, drive, and beds, and price the mowable lawn that's left. Drag the outline on the map to match what we actually cut — the price updates as you go. We confirm it on-site before the first visit, so larger lots see a starting price rather than a final one.</p>
 
     <div class="tool" aria-label="Instant lawn quote">
       <div class="searchrow">
@@ -83,7 +83,7 @@
           <div class="chip" id="chip">Type your address to start</div>
         </div>
         <div class="panel">
-          <div class="empty" id="empty">Type your address above. We'll pull your <b>actual lot</b>, size up the lawn, and your <b>price per cut</b> shows up right here.</div>
+          <div class="empty" id="empty">Enter your address above. We pull your <b>lot</b>, size the mowable lawn, and your <b>price per cut</b> appears here.</div>
 
           <div class="loading hidden" id="loading" role="status"><span class="spin" aria-hidden="true"></span>Measuring your lawn…</div>
 
@@ -124,7 +124,7 @@
         </div>
       </div>
     </div>
-    <div class="undertool">No account, no spam. Your address is only used to measure the lawn and prep your quote.</div>
+    <div class="undertool">No account, no spam. Your address is only used to measure the lawn and prepare your quote.</div>
   </div>
 </section>
 
@@ -132,24 +132,24 @@
 <section id="services">
   <div class="wrap">
     <div class="eyebrow">The menu</div>
-    <h2>Simple. Pick what your yard needs.</h2>
-    <p class="seclede">Three simple levels — start with a clean cut and add finish work whenever you like. Friendly help, never any pressure.</p>
+    <h2>Pick what your yard needs.</h2>
+    <p class="seclede">Three levels — start with a clean cut and add edging and detail work whenever you want it. The same per-square-foot rate sets the base price on all three.</p>
     <div class="cards3" id="serviceCards"></div>
-    <div class="undertool">Your exact price shows up live in the quote tool above — priced off your actual lawn, not a guess over the phone.</div>
+    <div class="undertool">Your price shows up live in the quote tool above — sized from your actual lawn, not a number over the phone.</div>
   </div>
 </section>
 
-<!-- PROMISE -->
+<!-- WHY US -->
 <section class="band">
   <div class="wrap">
-    <div class="eyebrow">Why neighbors choose us</div>
-    <h2>Friendly, reliable, and fair.</h2>
-    <p class="seclede">We keep it simple: careful work, honest pricing, and a crew that treats your yard like its own. Here's what every customer can count on.</p>
+    <div class="eyebrow">What you get</div>
+    <h2>What a measured quote actually buys you.</h2>
+    <p class="seclede">Four things you can check before we ever set foot on your property — each one visible in the quote above, not a line we ask you to take on faith.</p>
     <div class="promise">
-      <div class="pcard"><h3>Fair, competitive prices</h3><p>Affordable cuts priced off your actual lawn — clear quotes and no surprises on the bill. Paying more somewhere else? We'd love the chance to beat it.</p></div>
-      <div class="pcard"><h3>No contracts, ever</h3><p>Skip a week, pause for vacation, or stop anytime — nothing to sign and nothing to cancel. We earn your business every single visit.</p></div>
-      <div class="pcard"><h3>The same friendly crew</h3><p>One reliable crew that learns your yard and how you like it — on schedule, easy to reach, and glad to be there.</p></div>
-      <div class="pcard"><h3>Priced off your real lot</h3><p>Your quote starts from your actual lot on county maps — transparent, fair, and confirmed in person before we ever start.</p></div>
+      <div class="pcard"><h3>A price sized from the public record, not a windshield guess</h3><p>Your quote is built from your parcel's recorded boundary on the county GIS map, with the house, drive, and beds set aside — not a round number over the phone. You see the square footage we used and the rate behind it, and you can drag the outline to match your actual lawn. On larger lots it's a starting price we confirm on-site before the first cut.</p></div>
+      <div class="pcard"><h3>One fixed rate per cut, with the tax shown</h3><p>The same per-square-foot rate applies to every lawn, posted before you book, with Wisconsin's service tax itemized beside it. No packages, no prepayment, no upsell to learn what you'll pay. You're billed per visit, after the work is done.</p></div>
+      <div class="pcard"><h3>No contract, billed per visit</h3><p>Nothing to sign and nothing to cancel. Skip a week for travel, pause for the season, or stop entirely — there's no agreement holding you and no penalty for leaving. Each visit is earned by how we left the last one.</p></div>
+      <div class="pcard"><h3>Owner-operated, the same crew on a set route</h3><p>The person who quotes your property is the person accountable for it — local, owner-run, on a planned route through the lake communities, so your day stays predictable and the crew on your lawn this week is the crew on it next week.</p></div>
     </div>
   </div>
 </section>
@@ -160,7 +160,7 @@
     <div class="eyebrow">How it works</div>
     <h2>Three taps to a booked cut.</h2>
     <div class="steps">
-      <div class="step"><div class="num">1</div><h3>Type your address</h3><p>We pull your actual lot from county maps and estimate the lawn from it. No tracing, no phone tag — we confirm the exact price on-site.</p></div>
+      <div class="step"><div class="num">1</div><h3>Enter your address</h3><p>We pull your lot from county parcel maps and size the lawn from it — no tracing, no phone tag. We confirm the price with you on-site.</p></div>
       <div class="step"><div class="num">2</div><h3>Pick your service</h3><p>Choose The Cut, Fresh Edge, or Premier Trim, and how often you want us out.</p></div>
       <div class="step"><div class="num">3</div><h3>Book by text</h3><p>One tap sends us your address and your quote. We reply with a start date. That's it.</p></div>
     </div>
@@ -172,7 +172,7 @@
   <div class="wrap narrow">
     <div class="eyebrow">Where we're headed</div>
     <h2>Lawn care now. Your whole property, soon.</h2>
-    <p class="lede">Wisconsin seasons are short, so we're building toward year-round care — beds and edging, softscapes and hardscapes, the full property — all at the same honest pricing. Mowing is where we start. The fair-price promise covers everything we'll ever touch.</p>
+    <p class="lede">Wisconsin seasons are short, so we're building toward year-round care — beds and edging, softscapes and hardscapes, the full property — all priced the same measured, per-visit way. Mowing is where we start, and the way we price it is the way we'll price everything we touch.</p>
   </div>
 </section>
 
@@ -195,8 +195,8 @@
         <p>Per cut, after the work — no packages, no prepay. You get a simple total plus Wisconsin's service tax, and you pay by whatever's easiest for you.</p>
       </details>
       <details>
-        <summary>Is the quoted price exact?</summary>
-        <p>It's a real estimate, measured from your lot on county maps, and it's usually right on the money. We confirm it in person before the first cut — especially on larger properties, where we check the actual mowable area with you.</p>
+        <summary>How accurate is the quoted price?</summary>
+        <p>It's an estimate, sized from your lot on county parcel maps rather than guessed over the phone. We confirm it in person before the first cut — especially on larger properties, where we check the actual mowable area with you.</p>
       </details>
       <details>
         <summary>What if it rains?</summary>
@@ -204,33 +204,21 @@
       </details>
       <details>
         <summary>Do you do more than mowing?</summary>
-        <p>Mowing is where we start. Edging, beds, and seasonal cleanups are rolling out at the same honest pricing. Tell us what your property needs.</p>
+        <p>Mowing is where we start. Edging, beds, and seasonal cleanups are rolling out at the same measured pricing. Tell us what your property needs.</p>
       </details>
     </div>
   </div>
 </section>
 
-<!-- SWITCH OFFER -->
+<!-- SWITCH OFFER / CLOSE -->
 <section id="switch" class="band finalcta">
   <div class="wrap narrow">
-    <div class="eyebrow">New customers</div>
-    <h2>Already have a lawn service? Give us a shot.</h2>
-    <p class="seclede" style="margin-left:auto;margin-right:auto">We'd love the chance to earn your business, so we make switching easy: text us what you're paying now and we'll <b>match it, then take another <span id="offerPct">10</span>% off</b> — so you save from the very first cut. No contract, no pressure. If we're not a better cut at a better price, you've lost nothing.</p>
+    <div class="eyebrow">New clients</div>
+    <h2>Already have a service? It's worth a second number.</h2>
+    <p class="seclede">Enter your address for a measured price in seconds. Already have someone? Send what you pay now — we'll match it and take another <span id="offerPct">10</span>% off, so the first cut already saves you money. No contract either way.</p>
     <div class="heroctas">
-      <a class="btn btn-primary" id="switchText" href="#">Text us your current price</a>
-      <a class="btn btn-ghost" href="#quote">See my instant price</a>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="finalcta">
-  <div class="wrap">
-    <h2>Ready when you are.</h2>
-    <p class="seclede" style="margin-left:auto;margin-right:auto">A real quote in seconds — no phone tag, no contract. We'd love to be your crew.</p>
-    <div class="heroctas">
-      <a class="btn btn-primary" href="#quote">Get my price</a>
-      <a class="btn btn-ghost" id="finalCall" href="#">Call us</a>
+      <a class="btn btn-primary" href="#quote">Get my instant price</a>
+      <a class="btn btn-ghost" id="switchText" href="#">Text us your current price</a>
     </div>
   </div>
 </section>
@@ -239,8 +227,8 @@
   <div class="wrap">
     <div class="footgrid">
       <div class="footbrand">
-        <div class="mark"><span class="leaf"></span><span id="footBrand">Cedar Lake Lawn Co.</span></div>
-        <p>Fair, reliable lawn care for SE Wisconsin — careful work, an honest price, and no contracts. We'd love to earn your business.</p>
+        <div class="mark"><span id="footBrand">Cedar Lake Lawn Co.</span></div>
+        <p>Locally owned lawn care for SE Wisconsin's lake country — measured pricing, a fixed rate per cut, and no contract.</p>
       </div>
       <nav class="footcol" aria-label="Services">
         <h4>Services</h4>
@@ -253,7 +241,7 @@
         <h4>Company</h4>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
-        <a href="#switch">Switch &amp; save</a>
+        <a href="#switch">New clients</a>
       </nav>
       <div class="footcol">
         <h4>Contact</h4>

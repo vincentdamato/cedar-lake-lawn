@@ -55,9 +55,6 @@ $('footArea').textContent = CONFIG.SERVICE_AREA;
   const call = $('ctaCall') as HTMLAnchorElement;
   call.textContent = `or call ${phoneDisplay}`;
   call.href = `tel:+1${CONFIG.PHONE}`;
-  const fin = $('finalCall') as HTMLAnchorElement;
-  fin.href = `tel:+1${CONFIG.PHONE}`;
-  fin.textContent = `Call ${phoneDisplay}`;
   ($('heroText') as HTMLAnchorElement).href = smsHref(
     'Hi ' + CONFIG.BUSINESS_NAME + ' — I have a question about a lawn quote.'
   );
@@ -68,9 +65,7 @@ $('footArea').textContent = CONFIG.SERVICE_AREA;
       ` — I'd like to switch lawn services. I currently pay $____ for my lawn. Can you match it and take ${CONFIG.WELCOME_DISCOUNT_PCT}% off?`
   );
 }
-$('trustline').innerHTML = CONFIG.TRUST.map(
-  (t) => `<span><span class="dot"></span>${t}</span>`
-).join('');
+$('trustline').innerHTML = CONFIG.TRUST.map((t) => `<span>${t}</span>`).join('');
 $('serviceCards').innerHTML = CONFIG.TIERS.map(
   (t) =>
     `<div class="card"><div class="cname">${t.name}</div><div class="cinc">${t.inc}</div><div class="cblurb">${t.blurb}</div></div>`
