@@ -50,6 +50,17 @@ and publishes it on every push to `main`.
 
 That URL is what goes on the door hangers, yard signs, and Nextdoor posts.
 
+## Development workflow
+
+- **`main` is production** — every push to it builds, runs tests, and deploys to cedarlakelawn.com.
+- **`dev` is for work-in-progress** — push to it freely; CI runs tests + build as a check but does **not** deploy.
+- **Preview locally** with `cd app && npm run dev` (localhost:5173). Nothing is public until it's on `main`.
+- **To ship dev → live:** open a Pull Request `dev → main` and merge it, or:
+  ```bash
+  git checkout main && git merge dev && git push   # this deploys
+  git checkout dev                                  # back to working branch
+  ```
+
 ## How it works
 
 - **Address → parcel:** typeahead + lookup against the WI statewide parcel ArcGIS
