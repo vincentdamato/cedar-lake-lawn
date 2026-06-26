@@ -57,7 +57,7 @@
         { "@type": "AdministrativeArea", "name": "Waukesha County, WI" },
         { "@type": "AdministrativeArea", "name": "Ozaukee County, WI" }
       ],
-      "knowsAbout": ["Lawn mowing", "Lawn care", "Lawn edging", "Yard maintenance"],
+      "knowsAbout": ["Lawn mowing", "Lawn care", "Lawn edging", "Leaf removal", "Yard cleanup", "Lawn aeration", "Overseeding", "Mulching", "Hedge trimming", "Snow removal"],
       "makesOffer": [
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "The Cut — mow, trim, and blow-off" } },
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fresh Edge — mow plus crisp edging" } },
@@ -72,8 +72,9 @@
         { "@type": "Question", "name": "Is there a contract?", "acceptedAnswer": { "@type": "Answer", "text": "No. Skip a week, pause for vacation, or stop anytime — nothing to sign and nothing to cancel." } },
         { "@type": "Question", "name": "How does billing work?", "acceptedAnswer": { "@type": "Answer", "text": "Per cut, after the work — no packages, no prepay. You get a simple total plus Wisconsin's service tax." } },
         { "@type": "Question", "name": "How accurate is the quoted price?", "acceptedAnswer": { "@type": "Answer", "text": "It's an estimate, measured from a map of your actual property rather than guessed over the phone. We confirm it in person before the first cut, especially on larger properties." } },
+        { "@type": "Question", "name": "What if I'm not happy with a cut?", "acceptedAnswer": { "@type": "Answer", "text": "Tell us within a couple of days and we'll come back and make it right at no charge." } },
         { "@type": "Question", "name": "What if it rains?", "acceptedAnswer": { "@type": "Answer", "text": "We watch the forecast and shift your cut a day or two when we have to. You'll hear from us before we come." } },
-        { "@type": "Question", "name": "Do you do more than mowing?", "acceptedAnswer": { "@type": "Answer", "text": "Mowing is where we start. Edging, beds, and seasonal cleanups are rolling out at the same measured pricing." } }
+        { "@type": "Question", "name": "Do you do more than mowing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Alongside your recurring cut we handle seasonal cleanups and leaf removal, fall aeration and overseeding, beds, mulch and hedge trimming, and winter snow removal — all quoted when you book. Fertilization and weed-control programs are on the way." } }
       ]
     }
   ]
@@ -186,7 +187,7 @@
 <!-- SERVICES -->
 <section id="services">
   <div class="wrap">
-    <div class="eyebrow">The menu</div>
+    <div class="eyebrow">Mowing plans</div>
     <h2>Pick what your yard needs.</h2>
     <p class="seclede">Start with a clean cut and add edging or detail work whenever you want. The same per-square-foot rate sets the base price on all three.</p>
     <div class="cards3" id="serviceCards"></div>
@@ -222,12 +223,19 @@
   </div>
 </section>
 
-<!-- VISION -->
-<section class="band vision">
-  <div class="wrap narrow">
-    <div class="eyebrow">Where we're headed</div>
-    <h2>Lawn care now. Your whole property, soon.</h2>
-    <p class="lede">Wisconsin seasons are short, so we're growing into year-round property care — edging, beds, seasonal cleanups, and more — all priced the same measured, per-visit way. Mowing is just where we start.</p>
+<!-- MORE SERVICES -->
+<section id="more" class="band">
+  <div class="wrap">
+    <div class="eyebrow">Beyond the cut</div>
+    <h2>More than mowing.</h2>
+    <p class="seclede">The instant price above covers your recurring cut. We keep the rest of the property sharp too — these are quoted when you book, so just ask.</p>
+    <div class="cards4">
+      <div class="card"><div class="cname">Cleanups &amp; leaf removal</div><div class="cinc">Spring &amp; fall</div><div class="cblurb">Seasonal yard cleanups, leaf removal, and hauling — your property reset and tidy for the season ahead.</div></div>
+      <div class="card"><div class="cname">Aeration &amp; overseeding</div><div class="cinc">Fall</div><div class="cblurb">Core aeration and overseeding to break up compaction, thicken thin spots, and keep the lawn healthy.</div></div>
+      <div class="card"><div class="cname">Beds, mulch &amp; trimming</div><div class="cinc">As needed</div><div class="cblurb">Bed edging, fresh mulch, and bush and hedge trimming — the finish work that makes the whole yard look kept.</div></div>
+      <div class="card"><div class="cname">Snow removal</div><div class="cinc">Winter</div><div class="cblurb">Driveway and walk clearing through the Wisconsin winter, so we stay your crew all year.</div></div>
+    </div>
+    <div class="undertool">Fertilization and weed-control programs are on the way. Want an add-on now? <a id="extrasText" href="#">Text us for a quote</a>.</div>
   </div>
 </section>
 
@@ -254,12 +262,16 @@
         <p>It's an estimate, measured from a map of your actual property rather than guessed over the phone. We confirm it in person before the first cut — especially on larger properties, where we walk the mowable area with you.</p>
       </details>
       <details>
+        <summary>What if I'm not happy with a cut?</summary>
+        <p>Tell us within a couple of days and we'll come back and make it right — no charge. We earn the next visit by getting this one right.</p>
+      </details>
+      <details>
         <summary>What if it rains?</summary>
         <p>We watch the forecast and shift your cut a day or two when we have to. You'll hear from us before we come — never a surprise.</p>
       </details>
       <details>
         <summary>Do you do more than mowing?</summary>
-        <p>Mowing is where we start. Edging, beds, and seasonal cleanups are rolling out at the same measured pricing. Tell us what your property needs.</p>
+        <p>Yes. Alongside your recurring cut we handle seasonal cleanups and leaf removal, fall aeration and overseeding, beds, mulch and hedge trimming, and winter snow removal — all quoted when you book. Fertilization and weed-control programs are on the way.</p>
       </details>
     </div>
   </div>
@@ -290,6 +302,7 @@
         <a href="#services">The Cut</a>
         <a href="#services">Fresh Edge</a>
         <a href="#services">Premier Trim</a>
+        <a href="#more">Cleanups &amp; more</a>
         <a href="#quote">Get an instant price</a>
       </nav>
       <nav class="footcol" aria-label="Company">

@@ -64,6 +64,9 @@ $('footArea').textContent = CONFIG.SERVICE_AREA;
       CONFIG.BUSINESS_NAME +
       ` — I'd like to switch lawn services. I currently pay $____ for my lawn. Can you match it and take ${CONFIG.WELCOME_DISCOUNT_PCT}% off?`
   );
+  ($('extrasText') as HTMLAnchorElement).href = smsHref(
+    'Hi ' + CONFIG.BUSINESS_NAME + " — I'd like a quote on a lawn service (cleanup, aeration, beds, or snow)."
+  );
 }
 $('trustline').innerHTML = CONFIG.TRUST.map((t) => `<span>${t}</span>`).join('');
 $('serviceCards').innerHTML = CONFIG.TIERS.map(

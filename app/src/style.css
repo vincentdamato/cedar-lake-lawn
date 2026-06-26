@@ -144,12 +144,14 @@ h3{font-weight:700}
 
 /* services */
 .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cards4{display:grid;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));gap:16px}
 .card{background:var(--card);border:1px solid var(--line-solid);border-radius:var(--radius);padding:24px;transition:border-color .14s,box-shadow .14s}
 .card:hover,.pcard:hover{border-color:var(--spring);box-shadow:0 10px 26px -18px rgba(22,32,26,.28)}
 .card .cname{font-weight:700;font-size:21px;letter-spacing:-.015em}
 .card .cinc{font-size:13px;font-weight:600;color:var(--pine);margin-top:5px}
 .card .cblurb{font-size:14.5px;color:#475a4e;margin-top:11px;line-height:1.55}
 .undertool{font-size:14px;color:var(--moss);margin-top:18px}
+.undertool a{color:var(--pine);font-weight:600;text-decoration:underline}
 
 /* why-us */
 .promise{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:6px}
