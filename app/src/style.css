@@ -2,15 +2,15 @@
 .sronly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 :root{
-  --paper:#f7f3e9; --band:#e9efe1; --ink:#1c2a20; --pine:#1f4031; --moss:#5a6b5e;
-  --spring:#4f9d52; --spring-deep:#16301f; --line-solid:#e3ddcd;
-  --card:#fffdf7; --tint:#e7efe0; --warn:#b4541f; --radius:10px;
-  --accent:#e0a73e; --accent-deep:#b07d1e; --on-dark:#f7f3e9;
+  --paper:#f6faf4; --band:#e9f3e6; --ink:#15241a; --pine:#1f7a44; --moss:#5a6b5e;
+  --spring:#46a05a; --spring-deep:#18643a; --line-solid:#dbe7da;
+  --card:#ffffff; --tint:#e3f1de; --warn:#b4541f; --radius:10px;
+  --accent:#bdec55; --accent-deep:#a9da3e; --on-dark:#f3fbf3;
   --shadow:0 1px 2px rgba(22,32,26,.04), 0 14px 34px -18px rgba(22,32,26,.22);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 :focus-visible{outline:2.5px solid var(--pine);outline-offset:2px;border-radius:4px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
@@ -18,7 +18,7 @@ a{color:inherit}
 
 /* clean, readable display — one humanist sans throughout; weight carries the hierarchy */
 h1,h2,h3,.mark,.card .cname,.pcard h3,.faq summary,.oa h3,.tier .tname{
-  font-family:'Hanken Grotesk',system-ui,sans-serif;
+  font-family:'Manrope',system-ui,sans-serif;
 }
 
 /* header */
@@ -35,8 +35,8 @@ header.site{border-bottom:1px solid var(--line-solid);background:rgba(247,243,23
 section{padding:clamp(56px,8vw,92px) 0;border-top:1px solid var(--line-solid)}
 .band{background:var(--band)}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);display:flex;align-items:center;gap:11px}
-.eyebrow::before{content:"";width:22px;height:2px;background:var(--accent);flex:none;border-radius:2px}
-h1{font-weight:800;letter-spacing:-.025em;font-size:clamp(37px,5.4vw,56px);line-height:1.06;margin:.3em 0 .3em;max-width:20ch}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--pine);flex:none;border-radius:2px}
+h1{font-weight:700;letter-spacing:-.02em;font-size:clamp(37px,5.4vw,56px);line-height:1.08;margin:.3em 0 .32em;max-width:20ch}
 h2{font-weight:700;letter-spacing:-.02em;font-size:clamp(26px,3.4vw,38px);line-height:1.14;margin:.3em 0 .4em;max-width:24ch}
 h3{font-weight:700}
 .lede{font-size:clamp(16px,2vw,19px);color:#3a463c;max-width:56ch;margin:0}
@@ -44,16 +44,16 @@ h3{font-weight:700}
 
 /* hero */
 .hero{padding-top:clamp(54px,7vw,92px);padding-bottom:clamp(48px,6vw,78px);background:var(--pine);color:var(--on-dark);border-top:0}
-.hero .eyebrow{color:var(--accent)}
+.hero .eyebrow{color:var(--on-dark)}
 .hero .eyebrow::before{background:var(--accent)}
 .hero h1{color:var(--on-dark)}
 .h1accent{color:var(--accent)}
-.hero .lede{color:rgba(247,243,233,.84)}
-.hero .trustline{color:rgba(247,243,233,.86)}
-.hero .trustline span:not(:first-child)::before{background:rgba(247,243,233,.3)}
-.hero .btn-primary{background:var(--accent);color:#16301f;border-color:var(--accent)}
-.hero .btn-primary:hover{background:var(--accent-deep);color:#16301f;border-color:var(--accent-deep)}
-.hero .btn-ghost{color:var(--on-dark);border-color:rgba(247,243,233,.5)}
+.hero .lede{color:rgba(243,251,243,.86)}
+.hero .trustline{color:rgba(243,251,243,.88)}
+.hero .trustline span:not(:first-child)::before{background:rgba(243,251,243,.32)}
+.hero .btn-primary{background:#ffffff;color:var(--spring-deep);border-color:#ffffff}
+.hero .btn-primary:hover{background:#e6f6ea;color:var(--spring-deep);border-color:#e6f6ea}
+.hero .btn-ghost{color:var(--on-dark);border-color:rgba(243,251,243,.55)}
 .hero .btn-ghost:hover{border-color:var(--on-dark)}
 .hero a:focus-visible{outline-color:var(--on-dark)}
 .heroctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
@@ -107,7 +107,7 @@ h3{font-weight:700}
 .badge.exact{background:var(--tint);color:var(--pine)}
 .badge.est{background:#efe9dd;color:var(--warn)}
 .pricewrap{display:flex;align-items:baseline;gap:8px;margin:8px 0 2px}
-.price{font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:600;font-size:46px;letter-spacing:-.02em;line-height:1;color:var(--pine);font-variant-numeric:tabular-nums lining-nums}
+.price{font-family:'Manrope',system-ui,sans-serif;font-weight:600;font-size:46px;letter-spacing:-.02em;line-height:1;color:var(--pine);font-variant-numeric:tabular-nums lining-nums}
 .per{font-size:14px;font-weight:600;color:var(--moss)}
 .taxnote{font-size:12.5px;color:#6c7a70;margin:0 0 2px;font-variant-numeric:tabular-nums lining-nums}
 .menulabel,.cadlabel{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);margin:16px 0 8px}
@@ -118,7 +118,7 @@ h3{font-weight:700}
 .tier.sel{border-color:var(--pine);background:var(--tint)}
 .tier .tname{font-weight:700;font-size:15.5px;letter-spacing:-.01em}
 .tier .tinc{font-size:12.5px;color:#5d6c63;margin-top:1px}
-.tier .tprice{font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:600;font-size:18px;color:var(--pine);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+.tier .tprice{font-family:'Manrope',system-ui,sans-serif;font-weight:600;font-size:18px;color:var(--pine);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
 .cadrow{display:flex;gap:7px;flex-wrap:wrap}
 .cad{border:1px solid var(--line-solid);background:#fbfbf7;border-radius:var(--radius);padding:8px 14px;font:inherit;font-size:13px;font-weight:600;color:var(--moss);cursor:pointer;transition:border-color .12s,background .12s,color .12s}
 .cad:hover{border-color:var(--moss)}
@@ -163,7 +163,7 @@ h3{font-weight:700}
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .step{position:relative;padding-top:6px}
-.step .num{font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:700;font-size:14px;color:#16301f;background:var(--accent);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.step .num{font-family:'Manrope',system-ui,sans-serif;font-weight:700;font-size:14px;color:var(--paper);background:var(--pine);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
 .step h3{font-weight:700;font-size:18px;letter-spacing:-.015em;margin:0 0 6px}
 .step p{margin:0;font-size:14.5px;color:#475a4e;line-height:1.55}
 
@@ -172,7 +172,7 @@ h3{font-weight:700}
 .faq details{background:var(--card);border:1px solid var(--line-solid);border-radius:var(--radius);overflow:hidden}
 .faq summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:700;font-size:16.5px;letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-size:23px;font-weight:400;color:var(--moss);line-height:1;transition:transform .15s;font-family:'Hanken Grotesk',system-ui,sans-serif}
+.faq summary::after{content:"+";font-size:23px;font-weight:400;color:var(--moss);line-height:1;transition:transform .15s;font-family:'Manrope',system-ui,sans-serif}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{margin:0;padding:0 20px 18px;color:#475a4e;font-size:15px;line-height:1.6}
 
@@ -189,7 +189,7 @@ footer.site{border-top:1px solid var(--line-solid);padding:clamp(40px,5vw,56px) 
 .footbrand .mark{font-size:19px;margin-bottom:12px}
 .footbrand p{margin:0;max-width:36ch;line-height:1.6;color:var(--moss);font-size:13.5px}
 .footcol{display:flex;flex-direction:column;gap:9px;align-items:flex-start}
-.footcol h4{font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--pine);margin:0 0 4px}
+.footcol h4{font-family:'Manrope',system-ui,sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--pine);margin:0 0 4px}
 .footcol a{color:var(--moss);text-decoration:none;font-size:14px;transition:color .14s}
 .footcol a:hover{color:var(--pine);text-decoration:underline}
 .footcol span{color:var(--moss);font-size:13.5px;line-height:1.45}

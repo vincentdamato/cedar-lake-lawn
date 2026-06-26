@@ -21,7 +21,7 @@ export const CONFIG = {
 
   // Hero trust badges. Only claim what's true — add 'Fully insured' back here once
   // you actually carry general-liability coverage.
-  TRUST: ['Locally owned', 'No contracts', 'Same crew every time', 'Satisfaction guaranteed'] as string[],
+  TRUST: ['Locally owned', 'No contracts', 'Satisfaction guaranteed'] as string[],
 
   // "Switch & save" welcome offer (marketing hook): we MATCH a new customer's current
   // price, then take this % off on top, to earn the relationship. Used in the copy + text.
