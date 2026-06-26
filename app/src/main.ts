@@ -16,7 +16,7 @@ import { startAdjust, stopAdjust } from './adjust';
 import { captureLead } from './leads';
 
 const $ = (id: string) => document.getElementById(id) as HTMLElement;
-document.title = `${CONFIG.BUSINESS_NAME} — Instant Lawn Quote · SE Wisconsin`;
+document.title = `Lawn Care & Mowing in West Bend, WI | ${CONFIG.BUSINESS_NAME}`;
 const fmtPhone = (p: string) => `(${p.slice(0, 3)}) ${p.slice(3, 6)}-${p.slice(6)}`;
 const escapeHtml = (s: string) =>
   s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c] as string);
@@ -420,7 +420,7 @@ function updatePanel() {
     ? 'You adjusted the lawn on the map — priced on what you drew.'
     : large
       ? 'Big lot — a starting price. We confirm the exact mowable area on-site.'
-      : 'Estimated from your lot, measured on county maps. We confirm on-site.';
+      : 'Measured from a map of your property — we confirm in person.';
   adjustBtn.textContent = adjusted ? 'Re-adjust the lawn →' : 'Not quite right? Adjust the lawn →';
 
   renderTiers();
