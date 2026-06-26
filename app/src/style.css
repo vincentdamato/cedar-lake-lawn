@@ -47,6 +47,7 @@ h3{font-weight:700}
 .hero .eyebrow{color:var(--accent)}
 .hero .eyebrow::before{background:var(--accent)}
 .hero h1{color:var(--on-dark)}
+.h1accent{color:var(--accent)}
 .hero .lede{color:rgba(247,243,233,.84)}
 .hero .trustline{color:rgba(247,243,233,.86)}
 .hero .trustline span:not(:first-child)::before{background:rgba(247,243,233,.3)}
