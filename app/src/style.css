@@ -54,6 +54,7 @@ h3{font-weight:700}
 .hero .btn-primary:hover{background:var(--accent-deep);color:#16301f;border-color:var(--accent-deep)}
 .hero .btn-ghost{color:var(--on-dark);border-color:rgba(247,243,233,.5)}
 .hero .btn-ghost:hover{border-color:var(--on-dark)}
+.hero a:focus-visible{outline-color:var(--on-dark)}
 .heroctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
 .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:600;font-size:16px;padding:13px 26px;border-radius:var(--radius);border:1px solid transparent;cursor:pointer;font-family:inherit;letter-spacing:.01em;min-height:46px;transition:background .14s,color .14s,border-color .14s}
 .btn:active{transform:translateY(1px)}
